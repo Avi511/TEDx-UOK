@@ -36,9 +36,9 @@ export const ContactPage: React.FC = () => {
   } | null>(null);
 
   const categoryOptions = [
-    { value:  'general', label: 'General Inquiry' },
+    { value: 'general', label: 'General Inquiry' },
     { value: 'sponsorship', label: 'Sponsorship' },
-    { value:  'partnership', label: 'Partnership' },
+    { value: 'partnership', label: 'Partnership' },
     { value: 'media', label: 'Media & Press' },
     { value: 'speaker', label: 'Speaker Inquiry' },
     { value: 'feedback', label: 'Feedback' },
@@ -63,14 +63,14 @@ export const ContactPage: React.FC = () => {
     // Validate email
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!validateEmail(formData. email)) {
+    } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
     // Validate message
-    if (! formData.message.trim()) {
+    if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
-    } else if (formData.message. trim().length < 10) {
+    } else if (formData.message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
     }
 
@@ -95,14 +95,14 @@ export const ContactPage: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e:  React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitMessage(null);
 
     if (!validateForm()) {
       setSubmitMessage({
-        type:  'error',
-        text:  'Please fix the errors above before submitting',
+        type: 'error',
+        text: 'Please fix the errors above before submitting',
       });
       return;
     }
@@ -124,7 +124,7 @@ export const ContactPage: React.FC = () => {
       // Reset form after successful submission
       setFormData({
         name: '',
-        email:  '',
+        email: '',
         message: '',
         category: '',
       });
@@ -140,10 +140,10 @@ export const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black py-20 px-4">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-black py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto w-full">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4">
+         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Contact <span className="text-[#EB0028]">Us</span>
           </h1>
           <p className="text-gray-400 text-lg">
@@ -151,7 +151,7 @@ export const ContactPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-2xl p-8">
+        <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl sm:rounded-2xl p-6 sm:p-8">
           {submitMessage && (
             <div className="mb-6">
               <FormMessage

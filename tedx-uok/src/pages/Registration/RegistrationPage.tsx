@@ -13,19 +13,19 @@ interface RegistrationFormData {
 }
 
 interface FormErrors {
-  full_name?:  string;
+  full_name?: string;
   email?: string;
   phone?: string;
   ticket_type?: string;
 }
 
-export const RegistrationPage: React. FC = () => {
+export const RegistrationPage: React.FC = () => {
   const [formData, setFormData] = useState<RegistrationFormData>({
-    full_name:  '',
+    full_name: '',
     email: '',
     phone: '',
     ticket_type: '',
-    event_id:  'EVENT_001', // Hidden field - default event ID
+    event_id: 'EVENT_001', // Hidden field - default event ID
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -37,7 +37,7 @@ export const RegistrationPage: React. FC = () => {
 
   const ticketOptions = [
     { value: 'general', label: 'General Admission - LKR 1,000' },
-    { value:  'vip', label: 'VIP - LKR 2,500' },
+    { value: 'vip', label: 'VIP - LKR 2,500' },
     { value: 'student', label: 'Student - LKR 500' },
     { value: 'early_bird', label: 'Early Bird - LKR 800' },
   ];
@@ -56,21 +56,21 @@ export const RegistrationPage: React. FC = () => {
     const newErrors: FormErrors = {};
 
     // Validate full_name
-    if (!formData. full_name.trim()) {
+    if (!formData.full_name.trim()) {
       newErrors.full_name = 'Full name is required';
-    } else if (formData. full_name.trim().length < 2) {
+    } else if (formData.full_name.trim().length < 2) {
       newErrors.full_name = 'Name must be at least 2 characters';
     }
 
     // Validate email
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!validateEmail(formData. email)) {
+    } else if (!validateEmail(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
 
     // Validate phone
-    if (! formData.phone.trim()) {
+    if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
     } else if (!validatePhone(formData.phone)) {
       newErrors.phone = 'Please enter a valid phone number';
@@ -100,14 +100,14 @@ export const RegistrationPage: React. FC = () => {
     }
   };
 
-  const handleSubmit = async (e:  React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitMessage(null);
 
     if (!validateForm()) {
       setSubmitMessage({
-        type:  'error',
-        text:  'Please fix the errors above before submitting',
+        type: 'error',
+        text: 'Please fix the errors above before submitting',
       });
       return;
     }
@@ -130,7 +130,7 @@ export const RegistrationPage: React. FC = () => {
       setFormData({
         full_name: '',
         email: '',
-        phone:  '',
+        phone: '',
         ticket_type: '',
         event_id: 'EVENT_001',
       });
@@ -146,10 +146,10 @@ export const RegistrationPage: React. FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black py-20 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-black py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto w-full">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Event <span className="text-[#EB0028]">Registration</span>
           </h1>
           <p className="text-gray-400 text-lg">
@@ -157,7 +157,7 @@ export const RegistrationPage: React. FC = () => {
           </p>
         </div>
 
-        <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-2xl p-8">
+        <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl sm:rounded-2xl p-6 sm:p-8">
           {submitMessage && (
             <div className="mb-6">
               <FormMessage

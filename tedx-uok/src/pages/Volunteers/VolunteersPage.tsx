@@ -7,7 +7,7 @@ import { FormMessage } from '../../components/forms/FormMessage';
 interface VolunteerFormData {
   full_name: string;
   email: string;
-  phone:  string;
+  phone: string;
   university: string;
   interest_area: string;
   availability: string;
@@ -25,10 +25,10 @@ interface FormErrors {
   cv_url?: string;
 }
 
-export const VolunteersPage:  React.FC = () => {
+export const VolunteersPage: React.FC = () => {
   const [formData, setFormData] = useState<VolunteerFormData>({
     full_name: '',
-    email:  '',
+    email: '',
     phone: '',
     university: '',
     interest_area: '',
@@ -40,32 +40,32 @@ export const VolunteersPage:  React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<{
-    type:  'success' | 'error';
+    type: 'success' | 'error';
     text: string;
   } | null>(null);
 
   const interestAreaOptions = [
     { value: 'logistics', label: 'Logistics & Operations' },
-    { value:  'marketing', label: 'Marketing & Social Media' },
+    { value: 'marketing', label: 'Marketing & Social Media' },
     { value: 'tech', label: 'Technical Support' },
     { value: 'registration', label: 'Registration & Guest Services' },
     { value: 'content', label: 'Content Creation' },
-    { value:  'photography', label: 'Photography & Videography' },
+    { value: 'photography', label: 'Photography & Videography' },
   ];
 
   const availabilityOptions = [
-    { value:  'weekdays', label: 'Weekdays' },
+    { value: 'weekdays', label: 'Weekdays' },
     { value: 'weekends', label: 'Weekends' },
     { value: 'both', label: 'Both Weekdays & Weekends' },
     { value: 'event_day', label: 'Event Day Only' },
   ];
 
-  const validateEmail = (email:  string): boolean => {
+  const validateEmail = (email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex. test(email);
+    return emailRegex.test(email);
   };
 
-  const validatePhone = (phone:  string): boolean => {
+  const validatePhone = (phone: string): boolean => {
     const phoneRegex = /^[0-9+\s-()]{10,15}$/;
     return phoneRegex.test(phone);
   };
@@ -84,9 +84,9 @@ export const VolunteersPage:  React.FC = () => {
     const newErrors: FormErrors = {};
 
     // Validate full_name
-    if (!formData. full_name.trim()) {
+    if (!formData.full_name.trim()) {
       newErrors.full_name = 'Full name is required';
-    } else if (formData. full_name.trim().length < 2) {
+    } else if (formData.full_name.trim().length < 2) {
       newErrors.full_name = 'Name must be at least 2 characters';
     }
 
@@ -98,14 +98,14 @@ export const VolunteersPage:  React.FC = () => {
     }
 
     // Validate phone
-    if (!formData.phone. trim()) {
+    if (!formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
     } else if (!validatePhone(formData.phone)) {
       newErrors.phone = 'Please enter a valid phone number';
     }
 
     // Validate university
-    if (!formData. university.trim()) {
+    if (!formData.university.trim()) {
       newErrors.university = 'University name is required';
     }
 
@@ -115,7 +115,7 @@ export const VolunteersPage:  React.FC = () => {
     }
 
     // Validate availability
-    if (! formData.availability) {
+    if (!formData.availability) {
       newErrors.availability = 'Please select your availability';
     }
 
@@ -143,7 +143,7 @@ export const VolunteersPage:  React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e:  React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitMessage(null);
 
@@ -174,7 +174,7 @@ export const VolunteersPage:  React.FC = () => {
         full_name: '',
         email: '',
         phone: '',
-        university:  '',
+        university: '',
         interest_area: '',
         availability: '',
         cv_url: '',
@@ -192,18 +192,18 @@ export const VolunteersPage:  React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black py-20 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen bg-black py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto w-full">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-white mb-4">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Volunteer <span className="text-[#EB0028]">With Us</span>
           </h1>
           <p className="text-gray-400 text-lg">
-            Join our team and make TEDx UOK a success! 
+            Join our team and make TEDx UOK a success!
           </p>
         </div>
 
-        <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-2xl p-8">
+        <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl sm:rounded-2xl p-6 sm:p-8">
           {submitMessage && (
             <div className="mb-6">
               <FormMessage
