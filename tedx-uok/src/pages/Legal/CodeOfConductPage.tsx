@@ -20,34 +20,64 @@ export default function CodeOfConductPage() {
               and respect. We will not tolerate harassment, in any form, at a TEDx UOK event.
             </p>
 
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">At TEDx UOK, You Agree To:</h2>
-              <ul className="space-y-2 text-center text-white list-disc list-inside">
-                <li>Respect the boundaries of other attendees</li>
-                <li>Avoid aggressively pushing your own services, products, or causes</li>
-                <li>Respect confidentiality requests by speakers and other attendees</li>
-                <li>Look out for one another</li>
-                <li>Contribute to an inclusive event experience through respectful interactions</li>
-                <li>Follow health and safety guidelines provided by event organizers</li>
-              </ul>
+            {/* At TEDx UOK, You Agree To - Card Style */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold text-white">At TEDx UOK,<span className="text-[#EB0028]"> You Agree To:</span></h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Respect the boundaries of other attendees</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Avoid aggressively pushing your own services, products, or causes</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Respect confidentiality requests by speakers and other attendees</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Look out for one another</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Contribute to an inclusive event experience through respectful interactions</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Follow health and safety guidelines provided by event organizers</p>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Unacceptable Behavior</h2>
+            {/* Unacceptable Behavior - Card Style */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold text-white">
+                Unacceptable <span className="text-[#EB0028]">Behavior</span>
+              </h2>
               <p>These behaviors don't belong at TEDx UOK:</p>
-              <ul className="space-y-2 text-center text-white list-disc list-inside">
-                <li>Invasion of privacy or taking photos without permission</li>
-                <li>Posting personal details about someone else without permission</li>
-                <li>Disruptive behavior, excessive drinking, stalking, or threatening anyone</li>
-                <li>Abuse of power related to position, wealth, race, or gender</li>
-                <li>Ignoring health or safety guidelines</li>
-                <li>Discrimination or harassment of any kind</li>
-                <li>Sexual harassment or inappropriate physical contact</li>
-              </ul>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Invasion of privacy or taking photos without permission</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Posting personal details about someone else without permission</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Disruptive behavior, excessive drinking, stalking, or threatening anyone</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Abuse of power related to position, wealth, race, or gender</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Ignoring health or safety guidelines</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Discrimination or harassment of any kind</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300 md:col-span-2">
+                  <p className="text-white text-center">Sexual harassment or inappropriate physical contact</p>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Reporting Violations</h2>
+              <h2 className="text-2xl font-semibold text-white">Reporting <span className="text-[#EB0028]">Violations</span></h2>
               <p>
                 If you experience or witness behavior that violates this Code of Conduct, please report it 
                 immediately to a TEDx UOK organizer or email{' '}

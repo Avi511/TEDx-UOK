@@ -4,7 +4,6 @@ export default function PrivacyPolicyPage() {
     <main className="bg-black w-full">
       <section className="px-6 py-32">
         <div className="mx-auto max-w-4xl space-y-12">
-
           {/* Header */}
           <div className="text-center space-y-4">
             <p className="text-sm uppercase text-[#EB0028]">LEGAL</p>
@@ -16,56 +15,132 @@ export default function PrivacyPolicyPage() {
           {/* Content */}
           <div className="space-y-8 text-white leading-relaxed text-center">
             <p className="text-lg">
-              TEDx UOK is committed to protecting your privacy. This policy explains how we collect, 
-              use, and safeguard your personal information.
+              TEDx UOK is committed to protecting your privacy. This policy
+              explains how we collect, use, and safeguard your personal
+              information.
             </p>
 
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Information We Collect</h2>
-              <ul className="space-y-2 text-center text-white list-disc list-inside">
-                <li>Name, email address, and phone number</li>
-                <li>University affiliation and student ID (if applicable)</li>
-                <li>Volunteer application information</li>
-                <li>Contact form submissions</li>
-              </ul>
+            {/* Information We Collect - Card Style */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                Information <span className="text-[#EB0028]"> We Collect</span>
+              </h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Name, email address, and phone number
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    University affiliation and student ID (if applicable)
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Volunteer application information
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Contact form submissions
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* How We Use Your Information - Card Style */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                How We Use
+                <span className="text-[#EB0028]"> Your Information</span>
+              </h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Process event registrations and ticket purchases
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Communicate event details and updates
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Manage volunteer applications
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Respond to inquiries and provide support
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300 md:col-span-2">
+                  <p className="text-white text-left">
+                    Improve our website and event experience
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">How We Use Your Information</h2>
-              <ul className="space-y-2 text-center text-white list-disc list-inside">
-                <li>Process event registrations and ticket purchases</li>
-                <li>Communicate event details and updates</li>
-                <li>Manage volunteer applications</li>
-                <li>Respond to inquiries and provide support</li>
-                <li>Improve our website and event experience</li>
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Data Storage and Security</h2>
+              <h2 className="text-2xl font-semibold">
+                Data
+                <span className="text-[#EB0028]"> Storage Security</span>
+              </h2>
               <p>
-                Your data is stored securely using industry-standard security measures. We implement 
-                appropriate technical and organizational measures to protect your personal information 
-                against unauthorized access, alteration, disclosure, or destruction.
+                Your data is stored securely using industry-standard security
+                measures. We implement appropriate technical and organizational
+                measures to protect your personal information against
+                unauthorized access, alteration, disclosure, or destruction.
               </p>
             </div>
 
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Your Rights</h2>
-              <ul className="space-y-2 text-center text-white list-disc list-inside">
-                <li>Access your personal data</li>
-                <li>Correct inaccurate or incomplete data</li>
-                <li>Request deletion of your data</li>
-                <li>Opt-out of marketing communications</li>
-                <li>Withdraw consent at any time</li>
-              </ul>
+            {/* Your Rights - Card Style */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                Your <span className="text-[#EB0028]">Rights</span>
+              </h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Access your personal data
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Correct inaccurate or incomplete data
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Request deletion of your data
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">
+                    Opt-out of marketing communications
+                  </p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300 md:col-span-2">
+                  <p className="text-white text-left">
+                    Withdraw consent at any time
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Contact Us</h2>
+              <h2 className="text-2xl font-semibold">
+                Contact <span className="text-[#EB0028]">Us</span>
+              </h2>
               <p>
-                For privacy-related questions, contact us at{' '}
-                <a href="mailto:privacy@tedxuok.com" className="text-[#EB0028] hover:text-red-500 underline">
+                For privacy-related questions, contact us at{" "}
+                <a
+                  href="mailto:privacy@tedxuok.com"
+                  className="text-[#EB0028] hover:text-red-500 underline"
+                >
                   privacy@tedxuok.com
                 </a>
               </p>
@@ -75,7 +150,6 @@ export default function PrivacyPolicyPage() {
               Last updated: December 15, 2025
             </p>
           </div>
-
         </div>
       </section>
     </main>

@@ -9,12 +9,17 @@ type FAQItem = {
 
 type FAQGroup = {
   title: string;
+  titleParts: { text: string; isRed: boolean }[];
   items: FAQItem[];
 };
 
 const faqGroups: FAQGroup[] = [
   {
     title: "Registration & Tickets",
+    titleParts: [
+      { text: "Registration & ", isRed: false },
+      { text: "Tickets", isRed: true }
+    ],
     items: [
       {
         question: "How do I register for TEDxUoK?",
@@ -40,6 +45,10 @@ const faqGroups: FAQGroup[] = [
   },
   {
     title: "Event Day Information",
+    titleParts: [
+      { text: "Event Day ", isRed: false },
+      { text: "Information", isRed: true }
+    ],
     items: [
       {
         question: "When should attendees arrive?",
@@ -65,6 +74,10 @@ const faqGroups: FAQGroup[] = [
   },
   {
     title: "Speakers & Content",
+    titleParts: [
+      { text: "Speakers & ", isRed: false },
+      { text: "Content", isRed: true }
+    ],
     items: [
       {
         question: "How are speakers selected?",
@@ -90,6 +103,10 @@ const faqGroups: FAQGroup[] = [
   },
   {
     title: "Media & Accessibility",
+    titleParts: [
+      { text: "Media & ", isRed: false },
+      { text: "Accessibility", isRed: true }
+    ],
     items: [
       {
         question: "Can I take photos or videos?",
@@ -115,6 +132,10 @@ const faqGroups: FAQGroup[] = [
   },
   {
     title: "Partnerships & Volunteering",
+    titleParts: [
+      { text: "Partnerships & ", isRed: false },
+      { text: "Volunteering", isRed: true }
+    ],
     items: [
       {
         question: "How can I become a sponsor or partner?",
@@ -162,8 +183,12 @@ export default function FAQPage() {
         {/* FAQ Groups */}
         {faqGroups.map((group, gIndex) => (
           <div key={gIndex} className="space-y-10">
-            <h2 className="text-2xl font-semibold text-white text-center">
-              {group.title}
+            <h2 className="text-2xl font-semibold text-center">
+              {group.titleParts.map((part, idx) => (
+                <span key={idx} className={part.isRed ? "text-[#EB0028]" : "text-white"}>
+                  {part.text}
+                </span>
+              ))}
             </h2>
 
             <div className="grid gap-6 md:grid-cols-2">
@@ -174,14 +199,14 @@ export default function FAQPage() {
                 return (
                   <div
                     key={id}
-                    className="rounded-xl border border-[#1F1F1F] bg-[#0E0E0E] px-6 py-6 hover:border-[#EB0028]/50 transition-all duration-300"
+                    className="rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] px-6 py-6 hover:border-[#EB0028]/50 transition-all duration-300"
                   >
                     <button
                       onClick={() => setOpenId(isOpen ? null : id)}
                       aria-expanded={isOpen}
                       className="w-full text-left font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#EB0028] rounded flex items-start justify-between gap-3"
                     >
-                      <span className="flex-1">{item.question}</span>
+                      <span className="flex-1 ">{item.question}</span>
                       <ChevronDown
                         className={`w-5 h-5 text-[#EB0028] flex-shrink-0 transition-transform duration-300 ${
                           isOpen ? 'rotate-180' : ''

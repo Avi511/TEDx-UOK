@@ -20,7 +20,9 @@ export default function LicensingPage() {
             </p>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">About Our License</h2>
+              <h2 className="text-2xl font-semibold">
+                About  <span className="text-[#EB0028]">Our License</span>
+              </h2>
               <p>
                 TEDx is a program of local, self-organized events that bring people together to share 
                 a TED-like experience. At TEDx UOK, our event is organized by the University of 
@@ -29,7 +31,9 @@ export default function LicensingPage() {
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Independent Organization</h2>
+              <h2 className="text-2xl font-semibold">
+                Independent <span className="text-[#EB0028]">Organization</span>
+              </h2>
               <p>
                 While we operate under TED's brand and format guidelines, TEDx UOK is independently 
                 organized and operated. TED Conferences LLC does not control or endorse the specific 
@@ -37,19 +41,34 @@ export default function LicensingPage() {
               </p>
             </div>
 
-            <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Content Guidelines</h2>
-              <ul className="space-y-2 text-center text-white list-disc list-inside">
-                <li>Scientific claims must be factual and backed by research</li>
-                <li>No promotion of commercial products or services</li>
-                <li>No pseudo-science, conspiracy theories, or zealotry</li>
-                <li>Content aims to educate and enlighten, not divide</li>
-                <li>Proper permissions obtained for copyrighted material</li>
-              </ul>
+            {/* Content Guidelines - Card Style */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold">
+                Content <span className="text-[#EB0028]">Guidelines</span>
+              </h2>
+              <div className="grid gap-4 md:grid-cols-2">
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Scientific claims must be factual and backed by research</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">No promotion of commercial products or services</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">No pseudo-science, conspiracy theories, or zealotry</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300">
+                  <p className="text-white text-left">Content aims to educate and enlighten, not divide</p>
+                </div>
+                <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 hover:border-[#EB0028]/20 transition-all duration-300 md:col-span-2">
+                  <p className="text-white text-center">Proper permissions obtained for copyrighted material</p>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold text-white">Speaker Responsibility</h2>
+              <h2 className="text-2xl font-semibold">
+                Speaker <span className="text-[#EB0028]">Responsibility</span>
+              </h2>
               <p>
                 Our speakers participate on a volunteer basis and are solely responsible for the content 
                 of their presentations. It is their responsibility to obtain any copyright permissions 
