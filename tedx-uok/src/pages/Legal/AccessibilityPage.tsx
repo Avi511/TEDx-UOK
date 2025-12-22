@@ -1,12 +1,26 @@
 // src/pages/Legal/AccessibilityPage.tsx
+import { useEffect } from "react";
+
 export default function AccessibilityPage() {
+  // SEO: Set page title and meta description
+  useEffect(() => {
+    document.title = "Accessibility Statement - Inclusive Event | TEDxUOK";
+
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "TEDxUOK is committed to digital and event accessibility. WCAG 2.1 compliant website, wheelchair access, sign language interpretation, and accommodations available."
+      );
+    }
+  }, []);
+
   return (
     <main className="bg-black w-full">
       <section className="px-6 py-32">
         <div className="mx-auto max-w-4xl space-y-12">
           {/* Header */}
           <div className="text-center space-y-4">
-            <p className="text-sm uppercase text-[#EB0028]">LEGAL</p>
             <h1 className="text-4xl md:text-5xl font-bold text-white">
               <span className="text-[#EB0028]">Accessibility</span> Statement
             </h1>
@@ -22,7 +36,7 @@ export default function AccessibilityPage() {
             </p>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">
+              <h2 className="text-2xl font-semibold !mb-6">
                 Our <span className="text-[#EB0028]">Commitment</span>
               </h2>
               <p>
@@ -35,7 +49,7 @@ export default function AccessibilityPage() {
 
             {/* Accessibility Features - Card Style */}
             <div className="space-y-6">
-              <h2 className="text-2xl font-semibold">
+              <h2 className="text-2xl font-semibold !mb-6">
                 Accessibility <span className="text-[#EB0028]">Features</span>
               </h2>
               <div className="grid gap-4 md:grid-cols-2">
@@ -72,7 +86,7 @@ export default function AccessibilityPage() {
 
             {/* Event Accessibility - Card Style */}
             <div className="space-y-6">
-              <h2 className="text-2xl font-semibold">
+              <h2 className="text-2xl font-semibold !mb-6">
                 Event <span className="text-[#EB0028]">Accessibility</span>
               </h2>
               <p>
@@ -114,15 +128,16 @@ export default function AccessibilityPage() {
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold">
-                Requesting <span className="text-[#EB0028]">Accommodations</span>
+              <h2 className="text-2xl font-semibold !mb-6">
+                Requesting{" "}
+                <span className="text-[#EB0028]">Accommodations</span>
               </h2>
               <p>
                 If you require specific accommodations to attend TEDx UOK,
                 please contact us at least two weeks before the event at{" "}
                 <a
                   href="mailto:accessibility@tedxuok.com"
-                  className="text-[#EB0028] hover:text-red-500 underline"
+                  className="!font-semibold hover:text-[#B09F8D] underline"
                 >
                   accessibility@tedxuok.com
                 </a>
@@ -130,14 +145,14 @@ export default function AccessibilityPage() {
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl font-semibold ">Feedback</h2>
+              <h2 className="text-2xl !mb-6 font-semibold">Feedback</h2>
               <p>
                 We welcome feedback on the accessibility of TEDx UOK. If you
                 encounter any barriers or have suggestions for improvement,
                 please contact us at{" "}
                 <a
-                  href="mailto:info@tedxuok.com" 
-                  className="text-[#EB0028] hover:text-red-500 underline"
+                  href="mailto:info@tedxuok.com"
+                  className="!font-semibold hover:text-[#B09F8D] underline"
                 >
                   info@tedxuok.com
                 </a>

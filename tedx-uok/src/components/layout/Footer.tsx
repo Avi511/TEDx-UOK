@@ -4,6 +4,7 @@ import { Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 const footerLinks = {
   quickLinks: [
     { name: "Speakers", href: "/speakers" },
+    { name: "FAQ", href: "/faq" },
     { name: "Agenda", href: "/#agenda" },
     { name: "Venue", href: "/contact" },
     { name: "Team", href: "/team" },

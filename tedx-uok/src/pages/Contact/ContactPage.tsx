@@ -21,16 +21,16 @@ interface FormErrors {
 
 export const ContactPage: React. FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    email: '',
-    message: '',
-    category: '',
+    name: "",
+    email: "",
+    message: "",
+    category: "",
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<{
-    type: 'success' | 'error';
+    type: "success" | "error";
     text: string;
   } | null>(null);
 
@@ -84,7 +84,7 @@ export const ContactPage: React. FC = () => {
     if (! formData.message.  trim()) {
       newErrors.message = 'Message is required';
     } else if (formData.message.trim().length < 10) {
-      newErrors.message = 'Message must be at least 10 characters';
+      newErrors.message = "Message must be at least 10 characters";
     }
 
     // Category is optional, no validation needed
@@ -114,8 +114,8 @@ export const ContactPage: React. FC = () => {
 
     if (!validateForm()) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Please fix the errors above before submitting',
+        type: "error",
+        text: "Please fix the errors above before submitting",
       });
       return;
     }
@@ -127,7 +127,7 @@ export const ContactPage: React. FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Log the form data (in production, this would be sent to backend)
-      console.log('Contact Data:', formData);
+      console.log("Contact Data:", formData);
 
       setSubmitMessage({
         type:   'success',
@@ -144,8 +144,8 @@ export const ContactPage: React. FC = () => {
       setErrors({});
     } catch (error) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Something went wrong. Please try again.',
+        type: "error",
+        text: "Something went wrong. Please try again.",
       });
     } finally {
       setLoading(false);

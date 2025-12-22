@@ -31,7 +31,7 @@ export const RegistrationPage: React. FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [loading, setLoading] = useState(false);
   const [submitMessage, setSubmitMessage] = useState<{
-    type: 'success' | 'error';
+    type: "success" | "error";
     text: string;
   } | null>(null);
 
@@ -50,10 +50,10 @@ export const RegistrationPage: React. FC = () => {
   }, []);
 
   const ticketOptions = [
-    { value: 'general', label: 'General Admission - LKR 1,000' },
-    { value: 'vip', label: 'VIP - LKR 2,500' },
-    { value: 'student', label: 'Student - LKR 500' },
-    { value: 'early_bird', label: 'Early Bird - LKR 800' },
+    { value: "general", label: "General Admission - LKR 1,000" },
+    { value: "vip", label: "VIP - LKR 2,500" },
+    { value: "student", label: "Student - LKR 500" },
+    { value: "early_bird", label: "Early Bird - LKR 800" },
   ];
 
   const validateEmail = (email: string): boolean => {
@@ -73,7 +73,7 @@ export const RegistrationPage: React. FC = () => {
     if (!formData. full_name.trim()) {
       newErrors.full_name = 'Full name is required';
     } else if (formData.full_name.trim().length < 2) {
-      newErrors.full_name = 'Name must be at least 2 characters';
+      newErrors.full_name = "Name must be at least 2 characters";
     }
 
     // Validate email
@@ -87,12 +87,12 @@ export const RegistrationPage: React. FC = () => {
     if (! formData.phone.trim()) {
       newErrors.phone = 'Phone number is required';
     } else if (!validatePhone(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = "Please enter a valid phone number";
     }
 
     // Validate ticket_type
     if (!formData.ticket_type) {
-      newErrors.ticket_type = 'Please select a ticket type';
+      newErrors.ticket_type = "Please select a ticket type";
     }
 
     setErrors(newErrors);
@@ -120,8 +120,8 @@ export const RegistrationPage: React. FC = () => {
 
     if (!validateForm()) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Please fix the errors above before submitting',
+        type: "error",
+        text: "Please fix the errors above before submitting",
       });
       return;
     }
@@ -133,11 +133,11 @@ export const RegistrationPage: React. FC = () => {
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Log the form data (in production, this would be sent to backend)
-      console.log('Registration Data:', formData);
+      console.log("Registration Data:", formData);
 
       setSubmitMessage({
-        type: 'success',
-        text: 'Registration successful! Check your email for confirmation.',
+        type: "success",
+        text: "Registration successful! Check your email for confirmation.",
       });
 
       // Reset form after successful submission
@@ -151,8 +151,8 @@ export const RegistrationPage: React. FC = () => {
       setErrors({});
     } catch (error) {
       setSubmitMessage({
-        type: 'error',
-        text: 'Something went wrong. Please try again.',
+        type: "error",
+        text: "Something went wrong. Please try again.",
       });
     } finally {
       setLoading(false);
