@@ -98,10 +98,23 @@ const Agenda = () => {
   }, []);
 
   return (
-    <div className="bg-black text-white min-h-screen pt-24 pb-20 overflow-x-hidden">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative bg-black text-white min-h-screen pt-24 pb-20 overflow-x-hidden">
+      {/* Background Decorative Elements */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center select-none">
+        <div className="relative opacity-[0.02] transform -rotate-12 scale-150 sm:scale-100">
+          <div className="flex items-baseline leading-none font-bold">
+            <span className="text-[40vw] text-white tracking-tighter">TED</span>
+            <span className="text-[40vw] text-[#EB0028]">x</span>
+          </div>
+          <div className="text-[15vw] text-white font-bold text-right -mt-[5vw] mr-[4vw]">
+            UoK
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header - Centered */}
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-16 md:mb-20" data-aos="fade-down">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white">
             Agenda
           </h1>
@@ -131,26 +144,23 @@ const Agenda = () => {
               return (
                 <div
                   key={item.id}
-                  className={`relative flex flex-col md:flex-row items-center md:justify-between w-full ${
-                    isLeft ? "" : "md:flex-row-reverse"
-                  }`}
+                  className={`relative flex flex-col md:flex-row items-center md:justify-between w-full ${isLeft ? "" : "md:flex-row-reverse"
+                    }`}
                   data-aos={isLeft ? "fade-right" : "fade-left"}
                   data-aos-delay={index * 100}
                 >
                   {/* Content Card */}
                   <div
-                    className={`w-full md:w-[45%] pl-12 sm:pl-16 md:pl-0 ${
-                      isLeft
-                        ? "md:pr-8 lg:pr-12 md:text-right"
-                        : "md:pl-8 lg:pl-12 md:text-left"
-                    }`}
+                    className={`w-full md:w-[45%] pl-12 sm:pl-16 md:pl-0 ${isLeft
+                      ? "md:pr-8 lg:pr-12 md:text-right"
+                      : "md:pl-8 lg:pl-12 md:text-left"
+                      }`}
                   >
                     <div className="group relative bg-[#0E0E0E] border border-[#1F1F1F] p-6 sm:p-8 rounded-xl transition-all duration-500 hover:border-[#EB0028]/40 hover:shadow-[0_4px_20px_-2px_rgba(235,0,40,0.1)]">
                       {/* Time Badge */}
                       <div
-                        className={`inline-flex items-center gap-2 text-[#EB0028] text-xs sm:text-sm mb-4 bg-[#EB0028]/10 px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 group-hover:bg-[#EB0028]/15 ${
-                          isLeft ? "md:ml-auto" : ""
-                        }`}
+                        className={`inline-flex items-center gap-2 text-[#EB0028] text-xs sm:text-sm mb-4 bg-[#EB0028]/10 px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 group-hover:bg-[#EB0028]/15 ${isLeft ? "md:ml-auto" : ""
+                          }`}
                       >
                         <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                         {item.time}
@@ -166,9 +176,8 @@ const Agenda = () => {
                         {/* Speaker Info - Icon and role in one line */}
                         {item.speaker && (
                           <div
-                            className={`flex items-center gap-3 text-white font-medium text-base sm:text-lg transition-opacity duration-500s ${
-                              isLeft ? "md:flex-row-reverse" : ""
-                            }`}
+                            className={`flex items-center gap-3 text-white font-medium text-base sm:text-lg transition-opacity duration-500 ${isLeft ? "md:flex-row-reverse" : ""
+                              }`}
                           >
                             <div className="flex items-center gap-3">
                               <div className="p-1.5 sm:p-2 rounded-full bg-[#EB0028]/10 transition-all duration-300 group-hover:bg-[#EB0028]/20">
@@ -185,15 +194,15 @@ const Agenda = () => {
                             </div>
                           </div>
                         )}
-                        
+
                         {!item.speaker && (
-                          <div className="text-gray-400 italic text-sm sm:text-base transition-opacity duration-500">
+                          <div className="text-gray-400 italic text-sm sm:text-base transition-opacity duration-500 md:group-hover:opacity-0">
                             Event Logistics
                           </div>
                         )}
 
                         {/* Description - Hidden on mobile, shows on hover for desktop */}
-                        <div className="hidden md:block opacity-0 translate-y-4 transition-all duration-800 group-hover:opacity-100 group-hover:translate-y-2">
+                        <div className="hidden md:block opacity-0 translate-y-4 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
                           <p className="text-gray-300 text-sm leading-relaxed">
                             {item.description}
                           </p>

@@ -34,136 +34,170 @@
   font-display: swap;
 }
 
+@layer base {
+  :root {
+    /* TEDx Official Colors */
+    --tedx-red: 348 100% 46%; 
+    --tedx-black: 0 0% 0%;    
+    --tedx-white: 0 0% 100%; 
+    
+    /* Card styling */
+    --card-dark: 0 0% 5.5%;   
+    --card-border: 0 0% 12%;  
+    
+    /* Shadcn/UI Compatible Tokens */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
 
-:root {
-  /* Typography */
-  font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    --card: 0 0% 5.5%;
+    --card-foreground: 0 0% 100%;
 
-  /* Brand colors (Strict) */
-  --tedx-red: #EB0028;
-  --black: #000000;
-  --white: #FFFFFF;
-
-  /* Semantic Colors */
-  --background: var(--black);
-  --foreground: var(--white);
-  --card-bg: #0E0E0E;
-  --card-border: #1F1F1F;
-
-  color-scheme: dark;
-  color: var(--white);
-  background-color: var(--black);
+    --popover: 0 0% 5.5%;
+    --popover-foreground: 0 0% 100%;
 
     --primary: 348 100% 46%;
     --primary-foreground: 0 0% 100%;
 
-a {
-  font-weight: 500;
-  color: var(--white);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
 
-a:hover {
-  color: var(--tedx-red);
-}
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
 
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: var(--black);
-  color: var(--white);
-  overflow-x: hidden;
-}
+    --accent: 348 100% 46%;
+    --accent-foreground: 0 0% 100%;
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: 700;
-  line-height: 1.1;
-  margin: 0;
-}
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
 
-h1 {
-  font-size: 3.2em;
-}
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 348 100% 46%;
 
-/* Button base and variants according to TEDx guide */
-button {
-  font-family: inherit;
-  cursor: pointer;
-  border: none;
-  outline: none;
-}
+    --radius: 0.75rem;
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.6rem 1.5rem;
-  font-weight: 700;
-  border-radius: 9999px;
-  transition: all 0.2s ease;
-  font-size: 1rem;
-}
-
-.btn-primary {
-  background: var(--tedx-red);
-  color: var(--white);
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  background: #cf001f;
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--tedx-red);
-  border: 1px solid var(--tedx-red);
-}
-
-.btn-secondary:hover,
-.btn-secondary:focus {
-  background: rgba(235, 0, 40, 0.1);
-}
-
-button:focus-visible {
-  outline: 2px solid var(--tedx-red);
-  outline-offset: 2px;
-}
-
-/* Light mode overrides REMOVED to enforce Dark Editorial Minimalism */
-
-/* Core card style used across site per brand guide */
-.card-core {
-  background-color: #0E0E0E;
-  border: 1px solid #1F1F1F;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-}
-
-/* Page transition: fade + translate (used on route changes) */
-.page-transition {
-  animation: fadeInUp 360ms ease both;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
+    /* Sidebar specific tokens */
+    --sidebar-background: 0 0% 0%;
+    --sidebar-foreground: 0 0% 100%;
+    --sidebar-primary: 348 100% 46%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 12%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 12%;
+    --sidebar-ring: 348 100% 46%;
   }
 
+  /* Dark mode overrides (keeping uniform for Neo Minimalism) */
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 5.5%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 5.5%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 348 100% 46%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 348 100% 46%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 12%;
+    --input: 0 0% 12%;
+    --ring: 348 100% 46%;
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+    font-weight: 800; 
+    letter-spacing: 0;
+  }
+  
+  a {
+    font-weight: 500;
+    text-decoration: inherit;
+    transition: color 0.25s;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes countdown-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s ease-out forwards;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .animation-delay-500 {
+    animation-delay: 500ms;
   }
 }
