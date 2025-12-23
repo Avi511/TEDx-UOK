@@ -1,79 +1,84 @@
-import About from "../../components/About";
-import Countdown from "../../components/Countdown";
-import CTASection from "../../components/CTASection";
-import Hero from "../../components/Hero";
-import Highlights, { type Highlight } from "../../components/Highlights";
-import Speakers, { type Speaker } from "../../components/Speakers";
-// import { Footer } from "../../components/layout/Footer";
-// import { Navbar } from "../../components/layout/Navbar";
-import { Handshake, Lightbulb, Mic2, Users } from "lucide-react";
+import { supabase } from "../../api/supabaseClient";
 
-const speakers: Speaker[] = [
-  {
-    id: 1,
-    name: "Dr. Sarah Chen",
-    title: "AI Research Scientist",
-    talkTitle: "The Future of Human-AI Collaboration",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    id: 2,
-    name: "Marcus Williams",
-    title: "Social Entrepreneur",
-    talkTitle: "Building Communities Through Innovation",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    id: 3,
-    name: "Prof. Amara Okafor",
-    title: "Climate Scientist",
-    talkTitle: "Climate Action: Beyond the Headlines",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
-  },
-];
+// Import ALL Hooks
+import { useEvents } from "../../hooks/useEvents";
+import { useSpeakers } from "../../hooks/useSpeakers";
+import { usePartners } from "../../hooks/usePartners"; // <--- NEW
 
-const highlights: Highlight[] = [
-  {
-    icon: Mic2,
-    title: "Inspiring Talks",
-    description:
-      "Hear from thought leaders sharing groundbreaking ideas across diverse fields.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovative Theme",
-    description:
-      "Explore this year's theme through multiple perspectives and disciplines.",
-  },
-  {
-    icon: Users,
-    title: "Networking",
-    description:
-      "Connect with like-minded individuals passionate about ideas and change.",
-  },
-  {
-    icon: Handshake,
-    title: "Community Impact",
-    description:
-      "Be part of a movement that creates lasting positive change in our community.",
-  },
-];
+// Import Components
+import About from "../../components/home/About";
+import Countdown from "../../components/home/Countdown";
+import CTASection from "../../components/home/CTASection";
+import Hero from "../../components/home/Hero";
+import Highlights from "../../components/home/Highlights";
+import Speakers, { type Speaker } from "../../components/home/Speakers";
+import { ThemePreview } from "../../components/home/ThemePreview";
+import { Partners, type Partner } from "../../components/home/Partners"; // <--- Update Import
+
+const SPEAKER_BUCKET = import.meta.env.VITE_SUPABASE_BUCKET_SPEAKER_PHOTOS;
+const PARTNER_BUCKET = import.meta.env.VITE_SUPABASE_BUCKET_PARTNER_LOGOS;
+
+const getImageUrl = (path: string | null, bucketName: string) => {
+  if (!path)
+    return "https://ui-avatars.com/api/?name=TEDx&background=EB0028&color=fff&size=400";
+
+  if (path.startsWith("http")) return path;
+
+  // Uses the specific bucket passed to the function
+  const { data } = supabase.storage.from(bucketName).getPublicUrl(path);
+  return data.publicUrl;
+};
 
 const HomePage = () => {
+  const { event, loading: eventLoading } = useEvents();
+  const { speakers: rawSpeakers, loading: speakersLoading } = useSpeakers(3);
+  const { partners: rawPartners, loading: partnersLoading } = usePartners();
+
+  if (eventLoading || speakersLoading || partnersLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center text-white">
+        <div className="animate-pulse flex flex-col items-center">
+          <div className="h-8 w-8 bg-[#EB0028] rounded-full mb-4 animate-bounce"></div>
+          <p className="tracking-widest uppercase text-sm">
+            Setting The Stage...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const realSpeakers: Speaker[] = rawSpeakers.map((s) => ({
+    id: s.id,
+    name: s.full_name,
+    title: s.title,
+    talkTitle: s.talk_title || "To Be Announced",
+    image: getImageUrl(s.photo_url, SPEAKER_BUCKET),
+  }));
+
+  const realPartners: Partner[] = rawPartners.map((p) => ({
+    id: p.id,
+    name: p.name,
+    tier: p.tier,
+    logo: getImageUrl(p.logo_url, PARTNER_BUCKET),
+  }));
+
+  const eventDate = event?.date || null;
+  console.log(eventDate);
+  const eventVenue = event?.venues?.name || null;
+  const theme = event?.theme || null;
+  const description = event?.description || null;
+
   return (
-    <main className="min-h-screen bg-background">
-      {/* <Navbar /> */}
-      <Hero />
-      <Countdown date="2026-03-15T08:00:00" />
-      <About />
-      <Highlights highlights={highlights} />
-      <Speakers speakers={speakers} />
+    <div className="min-h-screen bg-background relative top-[-65px]">
+      <Hero date={eventDate} venue={eventVenue} theme={theme} />
+      <Countdown date={eventDate} />
+      <About description={description} />
+      <Highlights />
+      <ThemePreview theme={theme} description={description} />
+      <Speakers speakers={realSpeakers} />
+      <Partners partners={realPartners} />
       <CTASection />
-      {/* <Footer /> */}
-    </main>
+    </div>
   );
 };
 

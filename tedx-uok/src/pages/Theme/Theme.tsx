@@ -1,3 +1,18 @@
+import Loading from "../../components/ui/Loading";
+import { supabase } from "../../api/supabaseClient";
+import { useEvents } from "../../hooks/useEvents";
+import { useSpeakers } from "../../hooks/useSpeakers";
+
+const SPEAKER_BUCKET = import.meta.env.VITE_SUPABASE_BUCKET_SPEAKER_PHOTOS;
+
+const getImageUrl = (path: string | null, bucketName: string) => {
+  if (!path)
+    return "https://ui-avatars.com/api/?name=TEDx&background=EB0028&color=fff&size=400";
+  if (path.startsWith("http")) return path;
+  const { data } = supabase.storage.from(bucketName).getPublicUrl(path);
+  return data.publicUrl;
+};
+
 const subPillars = [
   {
     title: "Innovation",
@@ -16,62 +31,48 @@ const subPillars = [
   },
 ];
 
-const speakerAlignments = [
-  {
-    name: "Dr. Sarah Ahmed",
-    topic: "Redefining Education",
-    alignment:
-      "Challenges traditional learning paradigms to unlock human potential.",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Ali Hassan",
-    topic: "Sustainable Futures",
-    alignment:
-      "Connects environmental responsibility with economic opportunity.",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Fatima Malik",
-    topic: "Digital Transformation",
-    alignment:
-      "Explores how technology reshapes human connection and creativity.",
-    image:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Omar Khan",
-    topic: "Mental Health Advocacy",
-    alignment: "Addresses the resilience needed to navigate modern pressures.",
-    image:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-  },
-];
-
 const Theme = () => {
+  const { event, loading: eventLoading } = useEvents();
+  const { speakers, loading: speakersLoading } = useSpeakers();
+
+  if (eventLoading || speakersLoading) {
+    return <Loading />;
+  }
+
+  const realSpeakers = speakers.map((s) => ({
+    id: s.id,
+    name: s.full_name,
+    topic: s.talk_title || "Topic To Be Announced",
+    alignment: s.bio_short || s.title,
+    image: getImageUrl(s.photo_url, SPEAKER_BUCKET),
+  }));
+
+  const themeName = event?.theme || "Breaking Boundaries";
+  const themeParts = themeName.split(" ");
+  const firstPart = themeParts[0];
+  const secondPart = themeParts.slice(1).join(" ");
+
   return (
     <main className="min-h-screen bg-background relative top-[-50px]">
-      {/* Hero Section - Theme Title */}
+      {/* HERO SECTION (Dynamic) */}
       <section className="pt-32 pb-24 px-6">
         <div className="container mx-auto">
           <p className="text-sm font-medium text-primary tracking-widest uppercase mb-4 opacity-0 animate-fade-in-up">
-            TEDxUOK 2025 Theme
+            TEDxUOK 2026 Theme
           </p>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.95] mb-8 opacity-0 animate-fade-in-up animation-delay-100">
-            <span className="text-foreground">Breaking</span>
+            <span className="text-foreground">{firstPart}</span>
             <br />
-            <span className="text-primary">Boundaries</span>
+            <span className="text-primary">{secondPart || "Boundaries"}</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl opacity-0 animate-fade-in-up animation-delay-200">
-            Exploring the edges of possibility and the courage to venture
-            beyond.
+            {event?.description ||
+              "Exploring the edges of possibility and the courage to venture beyond."}
           </p>
         </div>
       </section>
 
-      {/* Theme Story */}
+      {/* THE STORY (Static) */}
       <section className="py-24 px-6 border-t border-border">
         <div className="container mx-auto">
           <h2 className="text-sm font-medium text-primary tracking-widest uppercase mb-8">
@@ -85,22 +86,16 @@ const Theme = () => {
               push against the boundaries that define our world.
             </p>
             <p>
-              "Breaking Boundaries" emerges from a simple observation: the most
-              profound changes happen at the edges—where disciplines intersect,
-              where comfort zones end, and where the familiar gives way to the
-              unknown. It is in these liminal spaces that innovation is born.
-            </p>
-            <p>
-              This theme invites us to examine not only the external boundaries
-              we face—social, technological, geographical—but also the internal
-              ones: our assumptions, fears, and inherited limitations. True
-              transformation requires both.
+              "{themeName}" emerges from a simple observation: the most profound
+              changes happen at the edges where disciplines intersect, where
+              comfort zones end, and where the familiar gives way to the
+              unknown.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Why It Matters */}
+      {/* WHY IT MATTERS (Static) */}
       <section className="py-24 px-6 bg-card border-t border-border">
         <div className="container mx-auto">
           <h2 className="text-sm font-medium text-primary tracking-widest uppercase mb-8">
@@ -115,8 +110,7 @@ const Theme = () => {
                 We stand at a pivotal moment. Climate change, technological
                 disruption, and social transformation demand that we think
                 differently. The boundaries we once accepted as fixed are
-                revealing themselves as constructs—malleable, challengeable, and
-                ultimately, breakable.
+                revealing themselves as constructs.
               </p>
             </div>
             <div>
@@ -125,16 +119,15 @@ const Theme = () => {
               </h3>
               <p className="text-muted-foreground leading-relaxed">
                 Every boundary broken creates new possibilities. When we
-                challenge conventional thinking, we don't just solve problems—we
-                discover new questions worth asking. This is how cultures evolve
-                and societies advance.
+                challenge conventional thinking, we don't just solve problems,
+                we discover new questions worth asking.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Relevance */}
+      {/* RELEVANCE (Static) */}
       <section className="py-24 px-6 border-t border-border">
         <div className="container mx-auto">
           <h2 className="text-sm font-medium text-primary tracking-widest uppercase mb-12">
@@ -146,10 +139,8 @@ const Theme = () => {
                 For Students
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                As you navigate an increasingly complex world, the ability to
-                transcend disciplinary boundaries becomes essential. The careers
-                of tomorrow don't exist yet—they will be created by those who
-                refuse to be confined by traditional categories.
+                The careers of tomorrow don't exist yet, they will be created by
+                those who refuse to be confined by traditional categories.
               </p>
             </div>
             <div className="border-l-2 border-primary pl-8">
@@ -157,11 +148,9 @@ const Theme = () => {
                 For Our Community
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                Karachi is a city of boundaries—socioeconomic, linguistic,
-                cultural. Yet it is also a city that has always found ways to
-                transcend them. This theme speaks to our collective capacity to
-                bridge divides and build something greater than the sum of our
-                parts.
+                Our community is a place of boundaries socioeconomic and
+                cultural. Yet it is also a place that has always found ways to
+                transcend them.
               </p>
             </div>
             <div className="border-l-2 border-primary pl-8">
@@ -169,18 +158,16 @@ const Theme = () => {
                 For the World
               </h3>
               <p className="text-muted-foreground leading-relaxed">
-                Global challenges require global thinking. The boundaries
-                between nations, between disciplines, between online and
-                offline—these are becoming increasingly porous. Understanding
-                how to navigate and reshape these boundaries is the essential
-                skill of our time.
+                Global challenges require global thinking. Understanding how to
+                navigate and reshape these boundaries is the essential skill of
+                our time.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sub-Pillars */}
+      {/* SUB-PILLARS (Static) */}
       <section className="py-24 px-6 bg-card border-t border-border">
         <div className="container mx-auto">
           <h2 className="text-sm font-medium text-primary tracking-widest uppercase mb-12">
@@ -207,19 +194,19 @@ const Theme = () => {
         </div>
       </section>
 
-      {/* How Speakers Align */}
+      {/* SPEAKER ALIGNMENT (Dynamic) */}
       <section className="py-24 px-6 border-t border-border">
         <div className="container mx-auto">
           <h2 className="text-sm font-medium text-primary tracking-widest uppercase mb-4">
             Speaker Alignment
           </h2>
           <p className="text-xl text-muted-foreground mb-12 max-w-2xl">
-            Each speaker brings a unique perspective on breaking boundaries.
+            See how our speakers interpret the theme "{themeName}".
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {speakerAlignments.map((speaker) => (
+            {realSpeakers.map((speaker) => (
               <div
-                key={speaker.name}
+                key={speaker.id}
                 className="group border border-border rounded-xl bg-card overflow-hidden hover:border-primary/50 transition-colors"
               >
                 <div className="aspect-square overflow-hidden">
@@ -233,6 +220,7 @@ const Theme = () => {
                   <h3 className="font-bold text-foreground">{speaker.name}</h3>
                   <p className="text-sm text-primary mb-2">{speaker.topic}</p>
                   <p className="text-muted-foreground text-sm leading-relaxed">
+                    {/* Using Bio as fallback for Alignment text */}
                     {speaker.alignment}
                   </p>
                 </div>
