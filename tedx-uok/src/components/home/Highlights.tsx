@@ -1,16 +1,33 @@
-import type { LucideIcon } from "lucide-react";
+import { Lightbulb, Users, Mic2, Handshake } from "lucide-react";
 
-export interface Highlight {
-  icon: LucideIcon;
-  title: string;
-  description: string;
-}
+const highlights = [
+  {
+    icon: Mic2,
+    title: "Inspiring Talks",
+    description:
+      "Hear from thought leaders sharing groundbreaking ideas across diverse fields.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Innovative Theme",
+    description:
+      "Explore this year's theme through multiple perspectives and disciplines.",
+  },
+  {
+    icon: Users,
+    title: "Networking",
+    description:
+      "Connect with like-minded individuals passionate about ideas and change.",
+  },
+  {
+    icon: Handshake,
+    title: "Community Impact",
+    description:
+      "Be part of a movement that creates lasting positive change in our community.",
+  },
+];
 
-interface Props {
-  highlights: Highlight[];
-}
-
-const Highlights = ({ highlights }: Props) => {
+const Highlights = () => {
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">

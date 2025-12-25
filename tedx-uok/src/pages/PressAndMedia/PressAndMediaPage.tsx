@@ -14,7 +14,7 @@ const PressMedia = () => {
     {
       id: 2,
       title: "Logo Pack",
-      description: "All TEDxUOK logos in SVG, PNG, and EPS formats",
+      description: "All TEDxUoK logos in SVG, PNG, and EPS formats",
       size: "12 MB",
       icon: ImageIcon,
       color: "bg-[#0E0E0E]",
@@ -82,7 +82,7 @@ const PressMedia = () => {
     {
       id: 3,
       platform: "LinkedIn",
-      handle: "TEDxUOK",
+      handle: "TEDxUoK",
       icon: Linkedin,
       url: "https://linkedin.com/company/tedxuok",
     },
@@ -108,7 +108,7 @@ const PressMedia = () => {
             Press & Media
           </h1>
           <p className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
-            Resources and information for journalists, bloggers, and media professionals covering TEDxUOK 2025.
+            Resources and information for journalists, bloggers, and media professionals covering TED<sup>x</sup> UoK 2025.
           </p>
         </div>
 
@@ -161,10 +161,10 @@ const PressMedia = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                  <span className="text-[#EB0028]">TEDx</span>UOK 2025
+                  <span className="text-[#EB0028]">TED<sup>x</sup></span> UoK 2025
                 </h3>
                 <p className="text-gray-300 mb-6 leading-relaxed">
-                  TEDxUOK is an independently organized TED event at the University of Kelaniya, bringing together thinkers, innovators, and creators to share ideas worth spreading. Our 2025 theme "Beyond Horizons" explores the future of technology, society, and human potential.
+                  TED<sup>x</sup>UoK is an independently organized TED event at the University of Kelaniya, bringing together thinkers, innovators, and creators to share ideas worth spreading. Our 2025 theme "Beyond Horizons" explores the future of technology, society, and human potential.
                 </p>
                 
                 <div className="space-y-4">
@@ -268,14 +268,14 @@ const PressMedia = () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { label: "First TEDxUOK Event", value: "2018" },
+              { label: "First TED<sup>x</sup>UoK Event", value: "2018" },
               { label: "Total Attendees (2024)", value: "450+" },
               { label: "Speakers Featured", value: "50+" },
               { label: "Countries Represented", value: "15+" },
             ].map((fact, index) => (
               <div key={index} className="text-center p-6 border border-[#1F1F1F] rounded-xl hover:border-[#EB0028]/40 transition-all duration-300">
                 <div className="text-4xl font-bold text-white mb-2">{fact.value}</div>
-                <div className="text-gray-400">{fact.label}</div>
+                <div className="text-gray-400" dangerouslySetInnerHTML={{ __html: fact.label }} />
               </div>
             ))}
           </div>

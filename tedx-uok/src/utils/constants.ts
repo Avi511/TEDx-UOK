@@ -2,8 +2,8 @@
 export const sharedStyles = {
 	// Card styles
 	card: {
-		base: 'group card-core overflow-hidden',
-		imageContainer: 'aspect-[3/4] overflow-hidden bg-[#0E0E0E]',
+		base: 'group bg-card border border-border rounded-lg overflow-hidden flex flex-col h-full transition-transform hover:scale-105 shadow-lg hover:shadow-2xl',
+		imageContainer: 'relative aspect-[3/4] overflow-hidden bg-[#0E0E0E]',
 		content: 'p-6',
 	},
 	// Typography
@@ -16,6 +16,7 @@ export const sharedStyles = {
 		cardAccent: 'text-base text-white/70',
 		trackLabel: 'text-xs uppercase text-white/60',
 		description: 'text-xl md:text-2xl text-white/80',
+		heroDescriptionDark: 'text-base md:text-lg text-white/80',
 		heroDescriptionDark: 'text-xl md:text-2xl text-white/50',
 	},
 	// Colors
@@ -40,6 +41,7 @@ export const sharedStyles = {
 	},
 	// Partner configuration
 	partner: {
-		logoMaxHeight: 'max-h-20',
+		logoMaxHeight: 'max-h-36',
+		imageContainer: 'relative bg-[#0E0E0E] flex items-center justify-center p-8 h-48 overflow-hidden',
 	},
 };

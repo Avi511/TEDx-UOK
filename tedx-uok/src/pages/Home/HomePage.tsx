@@ -9,59 +9,34 @@ import Speakers, { type Speaker } from "../../components/Speakers";
 import { Handshake, Lightbulb, Mic2, Users } from "lucide-react";
 import { useEffect } from "react";
 
-const speakers: Speaker[] = [
-  {
-    id: 1,
-    name: "Dr. Sarah Chen",
-    title: "AI Research Scientist",
-    talkTitle: "The Future of Human-AI Collaboration",
-    image:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    id: 2,
-    name: "Marcus Williams",
-    title: "Social Entrepreneur",
-    talkTitle: "Building Communities Through Innovation",
-    image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    id: 3,
-    name: "Prof. Amara Okafor",
-    title: "Climate Scientist",
-    talkTitle: "Climate Action: Beyond the Headlines",
-    image:
-      "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=face",
-  },
-];
+// Import ALL Hooks
+import { useEvents } from "../../hooks/useEvents";
+import { useSpeakers } from "../../hooks/useSpeakers";
+import { usePartners } from "../../hooks/usePartners"; // <--- NEW
 
-const highlights: Highlight[] = [
-  {
-    icon: Mic2,
-    title: "Inspiring Talks",
-    description:
-      "Hear from thought leaders sharing groundbreaking ideas across diverse fields.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovative Theme",
-    description:
-      "Explore this year's theme through multiple perspectives and disciplines.",
-  },
-  {
-    icon: Users,
-    title: "Networking",
-    description:
-      "Connect with like-minded individuals passionate about ideas and change.",
-  },
-  {
-    icon: Handshake,
-    title: "Community Impact",
-    description:
-      "Be part of a movement that creates lasting positive change in our community.",
-  },
-];
+// Import Components
+import About from "../../components/home/About";
+import Countdown from "../../components/home/Countdown";
+import CTASection from "../../components/home/CTASection";
+import Hero from "../../components/home/Hero";
+import Highlights from "../../components/home/Highlights";
+import Speakers, { type Speaker } from "../../components/home/Speakers";
+import { ThemePreview } from "../../components/home/ThemePreview";
+import { Partners, type Partner } from "../../components/home/Partners"; // <--- Update Import
+
+const SPEAKER_BUCKET = import.meta.env.VITE_SUPABASE_BUCKET_SPEAKER_PHOTOS;
+const PARTNER_BUCKET = import.meta.env.VITE_SUPABASE_BUCKET_PARTNER_LOGOS;
+
+const getImageUrl = (path: string | null, bucketName: string) => {
+  if (!path)
+    return "https://ui-avatars.com/api/?name=TEDx&background=EB0028&color=fff&size=400";
+
+  if (path.startsWith("http")) return path;
+
+  // Uses the specific bucket passed to the function
+  const { data } = supabase.storage.from(bucketName).getPublicUrl(path);
+  return data.publicUrl;
+};
 
 const HomePage = () => {
   // SEO: Set page title and meta description
@@ -78,16 +53,16 @@ const HomePage = () => {
   }, []);
 
   return (
-    <main className="min-h-screen bg-background">
-      {/* <Navbar /> */}
-      <Hero />
-      <Countdown date="2026-03-15T08:00:00" />
-      <About />
-      <Highlights highlights={highlights} />
-      <Speakers speakers={speakers} />
+    <div className="min-h-screen bg-background relative top-[-65px]">
+      <Hero date={eventDate} venue={eventVenue} theme={theme} />
+      <Countdown date={eventDate} />
+      <About description={description} />
+      <Highlights />
+      <ThemePreview theme={theme} description={description} />
+      <Speakers speakers={realSpeakers} />
+      <Partners partners={realPartners} />
       <CTASection />
-      {/* <Footer /> */}
-    </main>
+    </div>
   );
 };
 

@@ -1,3 +1,4 @@
+// routes/AppRouter.tsx
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Layout from "../components/layout/Layout";
 
@@ -29,6 +30,8 @@ import PaymentFailPage from "../pages/Payment/PaymentFailPage";
 import PaymentCancelPage from "../pages/Payment/PaymentCancelPage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 
+import ScrollToTop from "../components/common/ScrollToTop";
+
 function AnimatedRoutes() {
   const location = useLocation();
 
@@ -42,6 +45,7 @@ function AnimatedRoutes() {
       <Route path="/speakers/:id" element={<div key={location.pathname} className="page-transition"><SpeakerDetailPage /></div>} />
 
       <Route path="/agenda" element={<div key={location.pathname} className="page-transition"><AgendaPage /></div>} />
+
       <Route path="/team" element={<div key={location.pathname} className="page-transition"><TeamPage /></div>} />
       <Route path="/partners" element={<div key={location.pathname} className="page-transition"><PartnersPage /></div>} />
       <Route path="/contact" element={<div key={location.pathname} className="page-transition"><ContactPage /></div>} />
@@ -87,6 +91,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <ScrollToTop />
       <Layout>
+        <ScrollToTop />
         <AnimatedRoutes />
       </Layout>
     </BrowserRouter>

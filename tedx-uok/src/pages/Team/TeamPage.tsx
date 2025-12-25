@@ -1,8 +1,9 @@
-import React from "react";
-import { Linkedin } from "lucide-react";
-import { sharedStyles } from "../../utils/constants";
-import { useSEO } from "../../hooks/useSEO";
-import { seoConfig } from "../../config/seo";
+import React, { useState, useEffect } from 'react';
+import { Linkedin, UserCheck, Users, UserCog } from 'lucide-react';
+import { sharedStyles } from '../../utils/constants';
+import { supabase } from '../../lib/supabase';
+import { getSupabaseStorageUrl } from '../../lib/utils';
+import Loading from '../../components/ui/Loading';
 
 interface TeamMember {
   id: string;
@@ -14,87 +15,150 @@ interface TeamMember {
   function_area?: string;
 }
 
-interface TeamPageProps {
-  teamMembers: TeamMember[];
-}
+const TeamPage: React.FC = () => {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
 
-const TeamPage: React.FC<TeamPageProps> = ({ teamMembers }) => {
-  // SEO: Set page title and meta description
-  useSEO(seoConfig.team);
+  useEffect(() => {
+    const fetchTeamMembers = async () => {
+      const { data, error } = await supabase
+        .from('team_members')
+        .select('*')
+        .order('display_order', { ascending: true });
 
-  const licensees = teamMembers.filter((member) => member.type === "Licensee");
-  const executiveCommittee = teamMembers.filter(
-    (member) => member.type === "EXCO"
-  );
-  const directors = teamMembers.filter((member) => member.type === "Director");
+      if (error) {
+        console.error('Error fetching team members:', error);
+      } else {
+        const teamBucket = (import.meta.env.VITE_SUPABASE_BUCKET_TEAM_PHOTOS as string) || 'team-photos';
+        const mappedMembers: TeamMember[] = (data || []).map((m: any) => ({
+          id: m.team_member_id?.toString() || '',
+          full_name: m.full_name,
+          role: m.role || '',
+          type: (m.type as TeamMember['type']) || 'Director',
+          photo_url: m.photo_url
+            ? (String(m.photo_url).startsWith('http') || String(m.photo_url).startsWith('/')
+                ? String(m.photo_url)
+                : getSupabaseStorageUrl(teamBucket, String(m.photo_url)))
+            : '',
+          linkedin_url: m.linkedin_url,
+          function_area: m.function_area,
+        }));
+        setTeamMembers(mappedMembers);
+      }
 
-  const renderTeamSection = (
-    title: string,
-    members: TeamMember[],
-    trackNumber: string
-  ) => (
-    <section
-      className="mb-20"
-      aria-labelledby={`${title.toLowerCase().replace(/\s+/g, "-")}`}
-    >
+      setLoading(false);
+    };
+
+    fetchTeamMembers();
+  }, []);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  const licensees = teamMembers.filter(member => member.type === 'Licensee');
+  const executiveCommittee = teamMembers.filter(member => member.type === 'EXCO');
+  const directors = teamMembers.filter(member => member.type === 'Director');
+
+  const getTeamTypeStyles = (type: string) => {
+    switch (type) {
+      case 'Licensee':
+        return {
+          borderColor: 'border-purple-400',
+          bgGradient: 'from-purple-400/10 to-purple-600/5',
+          accentColor: 'text-purple-400',
+          icon: <UserCheck className="w-6 h-6" />
+        };
+      case 'EXCO':
+        return {
+          borderColor: 'border-blue-400',
+          bgGradient: 'from-blue-400/10 to-blue-600/5',
+          accentColor: 'text-blue-400',
+          icon: <Users className="w-6 h-6" />
+        };
+      case 'Director':
+        return {
+          borderColor: 'border-green-400',
+          bgGradient: 'from-green-400/10 to-green-600/5',
+          accentColor: 'text-green-400',
+          icon: <UserCog className="w-6 h-6" />
+        };
+      default:
+        return {
+          borderColor: 'border-gray-600',
+          bgGradient: 'from-gray-600/10 to-gray-800/5',
+          accentColor: 'text-gray-400',
+          icon: <UserCog className="w-6 h-6" />
+        };
+    }
+  };
+
+  const renderTeamSection = (title: string, members: TeamMember[], trackNumber: string, type: string) => (
+    <section className="mb-20" aria-labelledby={`${title.toLowerCase().replace(/\s+/g, '-')}`}>
       <div className="flex items-center justify-between mb-10">
         <div>
           <p className={`${sharedStyles.typography.trackLabel} mb-2`}>
             {trackNumber}
           </p>
           <h2
-            id={`${title.toLowerCase().replace(/\s+/g, "-")}`}
-            className={sharedStyles.typography.sectionTitle}
+            id={`${title.toLowerCase().replace(/\s+/g, '-')}`}
+            className={`${sharedStyles.typography.sectionTitle} flex items-center gap-3`}
           >
+            <span className="text-2xl">{getTeamTypeStyles(type).icon}</span>
             {title}
           </h2>
         </div>
       </div>
 
       <div className={sharedStyles.layout.gridThreeCol}>
-        {members.map((member) => (
-          <article key={member.id} className={sharedStyles.card.base}>
-            <div className={sharedStyles.card.imageContainer}>
-              <img
-                src={member.photo_url}
-                alt={member.full_name}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.src =
-                    "https://via.placeholder.com/400x500/e8e2dc/666666?text=No+Image";
-                }}
-              />
-            </div>
-            <div className={`${sharedStyles.card.content} space-y-1`}>
-              <h3
-                className={`${sharedStyles.typography.cardTitle} flex items-center gap-2`}
-              >
-                <span>{member.full_name}</span>
+        {members.map((member) => {
+          const typeStyles = getTeamTypeStyles(member.type);
+          return (
+            <article
+              key={member.id}
+              className={`${sharedStyles.card.base} bg-gradient-to-br ${typeStyles.bgGradient} ${typeStyles.borderColor} border-2 hover:border-opacity-80 transition-all duration-300 group`}
+            >
+              <div className={`${sharedStyles.card.imageContainer} relative overflow-hidden`}>
+                <img
+                  src={member.photo_url}
+                  alt={member.full_name}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.currentTarget.src = 'https://via.placeholder.com/400x500/e8e2dc/666666?text=No+Image';
+                  }}
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                />
                 {member.linkedin_url && (
                   <a
                     href={member.linkedin_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open ${member.full_name} LinkedIn profile`}
-                    className="inline-flex items-center text-gray-300 hover:text-white transition-colors"
+                    className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
                     title="LinkedIn"
                   >
                     <Linkedin className="h-4 w-4" aria-hidden="true" />
                   </a>
                 )}
-              </h3>
-              <p className={sharedStyles.typography.cardSubtitle}>
-                {member.role}
-              </p>
-              {member.function_area && (
-                <p className={sharedStyles.typography.cardAccent}>
-                  {member.function_area}
-                </p>
-              )}
-            </div>
-          </article>
-        ))}
+              </div>
+              <div className={`${sharedStyles.card.content} space-y-1`}>
+                <h3 className={`${sharedStyles.typography.cardTitle} flex items-center gap-2`}>
+                  <span>{member.full_name}</span>
+                </h3>
+                <p className={sharedStyles.typography.cardSubtitle}>{member.role}</p>
+                {member.function_area && (
+                  <p className={`${typeStyles.accentColor} font-medium`}>
+                    {member.function_area}
+                  </p>
+                )}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
@@ -108,40 +172,29 @@ const TeamPage: React.FC<TeamPageProps> = ({ teamMembers }) => {
         >
           <div>
             <h1 className={sharedStyles.typography.brandTitle}>
-              <span className={sharedStyles.colors.tedxRed}>TEDx</span>
-              <span className="text-white">UOK</span>
+              <span className={sharedStyles.colors.tedxRed}>TED<sup>x</sup></span>
+              <span className="text-white"> UoK</span>
             </h1>
-            <h2
-              className={`${sharedStyles.typography.heroTitle} text-white mt-5`}
-            >
-              Team
-            </h2>
+            <h2 className={`${sharedStyles.typography.heroTitle} text-white mt-5`}>Team</h2>
+            <div className="mt-6 w-24 h-1 bg-gradient-to-r from-[#EB0028] to-transparent"></div>
           </div>
 
           <div className={sharedStyles.layout.heroAside}>
             <p className={sharedStyles.typography.heroDescriptionDark}>
-              Meet the licensee, executive committee, and directors who shape
-              TEDxUOK.
+              Meet the licensee, executive committee, and directors who shape TED<sup>x</sup> UoK.
             </p>
           </div>
         </div>
       </section>
 
-      <div className={sharedStyles.layout.divider} />
+      <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent max-w-7xl mx-auto" />
 
       {/* Team Sections */}
       <section className={sharedStyles.layout.contentSection}>
         <div className={sharedStyles.layout.pageStack}>
-          {licensees.length > 0 &&
-            renderTeamSection("Licensee", licensees, "TEAM 01")}
-          {executiveCommittee.length > 0 &&
-            renderTeamSection(
-              "Executive Committee",
-              executiveCommittee,
-              "TEAM 02"
-            )}
-          {directors.length > 0 &&
-            renderTeamSection("Directors", directors, "TEAM 03")}
+          {licensees.length > 0 && renderTeamSection('Licensee', licensees, 'TEAM 01', 'Licensee')}
+          {executiveCommittee.length > 0 && renderTeamSection('Executive Committee', executiveCommittee, 'TEAM 02', 'EXCO')}
+          {directors.length > 0 && renderTeamSection('Directors', directors, 'TEAM 03', 'Director')}
         </div>
       </section>
     </main>

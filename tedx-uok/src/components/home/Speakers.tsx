@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { Button } from "./ui/Button";
+import { Button } from "../ui/Button";
 
 export interface Speaker {
   id: number;
@@ -39,34 +39,25 @@ const Speakers = ({ speakers }: Props) => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {speakers.map((speaker) => (
             <article
-              key={speaker.id}
-              className="group bg-background border border-border rounded-lg overflow-hidden transition-all duration-300 hover:border-primary/50"
+              key={speaker.name}
+              className="group border border-border rounded-xl bg-card overflow-hidden hover:border-primary/50 transition-colors"
             >
-              {/* Image */}
-              <div className="aspect-[4/5] overflow-hidden">
+              <div className="aspect-square overflow-hidden">
                 <img
                   src={speaker.image}
                   alt={speaker.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300"
                 />
               </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                  {speaker.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {speaker.title}
+              <div className="p-5">
+                <h3 className="font-bold text-foreground">{speaker.name}</h3>
+                <p className="text-sm text-primary mb-2">{speaker.title}</p>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  Talk Title :
                 </p>
-                <div className="pt-4 border-t border-border">
-                  <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
-                    Talk Title
-                  </p>
-                  <p className="text-sm text-foreground font-medium">
-                    {speaker.talkTitle}
-                  </p>
-                </div>
+                <p className="text-muted-foreground text-sm leading-relaxed">
+                  {speaker.talkTitle}
+                </p>
               </div>
             </article>
           ))}

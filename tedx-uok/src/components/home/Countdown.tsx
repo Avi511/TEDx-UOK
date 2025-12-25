@@ -6,10 +6,11 @@ interface TimeUnit {
 }
 
 interface props {
-  date: string;
+  date: string | null;
 }
 
 const Countdown = ({ date }: props) => {
+  if (!date) return null;
   const eventDate = new Date(date);
 
   const calculateTimeLeft = (): TimeUnit[] => {

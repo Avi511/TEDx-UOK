@@ -9,16 +9,23 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full",
-        destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-md",
-        outline: "border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground rounded-full",
-        secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md",
+        default:
+          "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90 rounded-md",
+        outline:
+          "border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground rounded-full",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 rounded-md",
         ghost: "hover:bg-accent/10 hover:text-accent-foreground rounded-md",
         link: "text-primary underline-offset-4 hover:underline",
         // TEDx-specific variants
-        tedxPrimary: "bg-[#EB0028] text-white hover:bg-[#C40022] rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300",
-        tedxSecondary: "border border-white/20 bg-transparent text-white hover:bg-white/10 rounded-full font-medium transition-all duration-300",
-        tedxGhost: "bg-transparent text-white hover:text-[#EB0028] transition-colors",
+        tedxPrimary:
+          "bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-medium",
+        tedxSecondary:
+          "border border-primary bg-transparent text-primary hover:bg-primary hover:text-primary-foreground rounded-full font-medium",
+        tedxGhost:
+          "bg-transparent text-foreground hover:text-primary transition-colors",
       },
       size: {
         default: "h-10 px-6 py-2",
@@ -32,22 +39,27 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  },
+  }
 );
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-  VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
-    return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
-  },
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
 );
 Button.displayName = "Button";
-
 
 export { Button, buttonVariants };
