@@ -1,55 +1,4 @@
 @import "tailwindcss";
-@config "../tailwind.config.ts";
-
-:root {
-  /* Typography */
-  font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* Brand colors (Strict) */
-  --tedx-red: #EB0028;
-  --black: #000000;
-  --white: #FFFFFF;
-
-  /* Semantic Colors */
-  --background: var(--black);
-  --foreground: var(--white);
-  --card-bg: #0E0E0E;
-  --card-border: #1F1F1F;
-
-  color-scheme: dark;
-  color: var(--white);
-  background-color: var(--black);
-
-  --primary: 348 100% 46%;
-  --primary-foreground: 0 0% 100%;
-}
-
-:root {
-  /* Typography */
-  font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  /* Brand colors (Strict) */
-  --tedx-red: #EB0028;
-  --black: #000000;
-  --white: #FFFFFF;
-
-  /* Semantic Colors */
-  --background: var(--black);
-  --foreground: var(--white);
-  --card-bg: #0E0E0E;
-  --card-border: #1F1F1F;
-
-  color-scheme: dark;
-  color: var(--white);
-  background-color: var(--black);
-
-  --primary: 348 100% 46%;
-  --primary-foreground: 0 0% 100%;
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                    FONTS                                   */
@@ -58,7 +7,6 @@
 @font-face {
   font-family: "HelveticaNeue";
   src: url("./assets/fonts/HelveticaNeueHv.ttf") format("truetype");
-  font-weight: 800;
   font-weight: 800;
   font-style: normal;
   font-display: swap;
@@ -87,10 +35,6 @@
   font-style: normal;
   font-display: swap;
 }
-
-/* -------------------------------------------------------------------------- */
-/*                                    BASE                                    */
-/* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                                    BASE                                    */
@@ -188,6 +132,8 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    background-color: black;
+    /* Hard fallback */
     font-family: "HelveticaNeue", system-ui, Avenir, Helvetica, Arial, sans-serif;
     font-weight: 400;
     line-height: 1.5;
@@ -198,12 +144,6 @@
     overflow-x: hidden;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
   h1,
   h2,
   h3,
@@ -324,7 +264,6 @@
     transform: translateY(20px);
   }
 
-
   to {
     opacity: 1;
     transform: translateY(0);
@@ -336,7 +275,6 @@
     opacity: 0;
   }
 
-
   to {
     opacity: 1;
   }
@@ -344,50 +282,7 @@
 
 @keyframes countdown-pulse {
 
-
   0%,
-  100% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.02);
-  }
-}
-
-@layer utilities {
-  .animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out forwards;
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.4s ease-out forwards;
-  }
-
-  .animation-delay-100 {
-    animation-delay: 100ms;
-  }
-
-  .animation-delay-200 {
-    animation-delay: 200ms;
-  }
-
-  .animation-delay-300 {
-    animation-delay: 300ms;
-  }
-
-  .animation-delay-400 {
-    animation-delay: 400ms;
-  }
-
-  .animation-delay-500 {
-    animation-delay: 500ms;
-  }
-}
-
-@keyframes countdown-pulse {
-  0%,
- 
   100% {
     transform: scale(1);
   }
