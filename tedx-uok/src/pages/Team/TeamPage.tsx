@@ -4,7 +4,7 @@ import { sharedStyles } from '../../utils/constants';
 import { supabase } from '../../lib/supabase';
 import { getSupabaseStorageUrl } from '../../lib/utils';
 import Loading from '../../components/ui/Loading';
-
+import {useSEO} from "../../hooks/useSEO";
 interface TeamMember {
   id: string;
   full_name: string;
@@ -18,8 +18,13 @@ interface TeamMember {
 const TeamPage: React.FC = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
+  useSEO({
+      title: "Our Team - Meet the Organizers| TEDxUOK",
+      description: "Discover the passionate team behind TEDxUOK, including our licensee, executive committee, and directors dedicated to bringing inspiring ideas to life."
+    })
 
   useEffect(() => {
+    
     const fetchTeamMembers = async () => {
       const { data, error } = await supabase
         .from('team_members')

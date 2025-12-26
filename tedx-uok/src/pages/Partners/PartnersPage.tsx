@@ -4,6 +4,7 @@ import { sharedStyles } from '../../utils/constants';
 import { supabase } from '../../lib/supabase';
 import { getSupabaseStorageUrl } from '../../lib/utils';
 import Loading from '../../components/ui/Loading';
+import {useSEO} from "../../hooks/useSEO";
 
 interface Partner {
   id: string;
@@ -17,8 +18,13 @@ interface Partner {
 const PartnersPage: React.FC = () => {
   const [partners, setPartners] = useState<Partner[]>([]);
   const [loading, setLoading] = useState(true);
+  useSEO({
+      title: "Our Partners - Collaborators & Supporters | TEDxUOK",
+      description: "Explore the esteemed partners of TEDxUOK, showcasing our valued collaborators across Title, Gold, Silver, Bronze, and In-kind tiers."
+    });
 
   useEffect(() => {
+    
     const fetchPartners = async () => {
       const { data, error } = await supabase
         .from('partners')
