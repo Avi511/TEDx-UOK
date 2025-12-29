@@ -34,6 +34,20 @@ const AgendaPage = () => {
   const [agendaItems, setAgendaItems] = useState<AgendaItem[]>([]);
   const [eventDetails, setEventDetails] = useState<EventDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Handle Window Resize to switch animation styles
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    // Set initial state
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     AOS.init({
@@ -187,29 +201,32 @@ const AgendaPage = () => {
             <div className="space-y-8 sm:space-y-12">
               {agendaItems.map((item, index) => {
                 const isLeft = index % 2 === 0;
+
+                // On mobile, always fade up. On desktop, zig-zag.
+                const aosAnimation = isMobile
+                  ? "fade-up"
+                  : (isLeft ? "fade-right" : "fade-left");
+
                 return (
                   <div
                     key={item.agenda_item_id}
-                    className={`relative flex flex-col md:flex-row items-center md:justify-between w-full ${
-                      isLeft ? "" : "md:flex-row-reverse"
-                    }`}
-                    data-aos={isLeft ? "fade-right" : "fade-left"}
+                    className={`relative flex flex-col md:flex-row items-center md:justify-between w-full ${isLeft ? "" : "md:flex-row-reverse"
+                      }`}
+                    data-aos={aosAnimation}
                     data-aos-delay={index * 100}
                   >
                     {/* Content Card */}
                     <div
-                      className={`w-full md:w-[45%] pl-12 sm:pl-16 md:pl-0 ${
-                        isLeft
+                      className={`w-full md:w-[45%] pl-12 sm:pl-16 md:pl-0 ${isLeft
                           ? "md:pr-8 lg:pr-12 md:text-right"
                           : "md:pl-8 lg:pl-12 md:text-left"
-                      }`}
+                        }`}
                     >
                       <div className="group relative bg-[#0E0E0E] border border-[#1F1F1F] p-6 sm:p-8 rounded-xl transition-all duration-500 hover:border-[#EB0028]/40 hover:shadow-[0_4px_20px_-2px_rgba(235,0,40,0.1)]">
                         {/* Time Badge */}
                         <div
-                          className={`inline-flex items-center gap-2 text-[#EB0028] text-xs sm:text-sm mb-4 bg-[#EB0028]/10 px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 group-hover:bg-[#EB0028]/15 ${
-                            isLeft ? "md:ml-auto" : ""
-                          }`}
+                          className={`inline-flex items-center gap-2 text-[#EB0028] text-xs sm:text-sm mb-4 bg-[#EB0028]/10 px-3 sm:px-4 py-1.5 rounded-full transition-all duration-300 group-hover:bg-[#EB0028]/15 ${isLeft ? "md:ml-auto" : ""
+                            }`}
                         >
                           <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
                           {formatTime(item.start_time)}
@@ -226,18 +243,16 @@ const AgendaPage = () => {
                           {/* Speaker Info */}
                           {item.speaker_id && item.speakers && (
                             <div
-                              className={`flex items-center gap-3 text-white font-medium text-base sm:text-lg transition-opacity duration-500 ${
-                                isLeft ? "md:flex-row-reverse" : ""
-                              }`}
+                              className={`flex items-center gap-3 text-white font-medium text-base sm:text-lg transition-opacity duration-500 ${isLeft ? "md:flex-row-reverse" : ""
+                                }`}
                             >
                               <div className="flex items-center gap-3">
                                 <div className="p-1.5 sm:p-2 rounded-full bg-[#EB0028]/10 transition-all duration-300 group-hover:bg-[#EB0028]/20">
                                   <Mic className="w-3 h-3 sm:w-4 sm:h-4 text-[#EB0028]" />
                                 </div>
                                 <div
-                                  className={`text-left ${
-                                    isLeft ? "md:text-right" : ""
-                                  }`}
+                                  className={`text-left ${isLeft ? "md:text-right" : ""
+                                    }`}
                                 >
                                   <div className="leading-tight">
                                     {item.speakers.full_name}
@@ -256,7 +271,7 @@ const AgendaPage = () => {
                             <div className="text-gray-400 italic text-sm sm:text-base transition-opacity duration-500 md:group-hover:opacity-0">
                               {item.type === "Break"
                                 ? "Break"
-                                : "Event Logistics"}
+                                : ""}
                             </div>
                           )}
 

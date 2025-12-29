@@ -89,8 +89,6 @@ const ImpactPage = () => {
 
     return (
         <div className="w-full min-h-screen bg-black text-white">
-            <Navbar />
-
             {/* Hero Section */}
             <div className="pt-24">
                 <PageHero
@@ -327,8 +325,6 @@ const ImpactPage = () => {
                     </div>
                 </div>
             </Section>
-
-            <Footer />
         </div>
     );
 };

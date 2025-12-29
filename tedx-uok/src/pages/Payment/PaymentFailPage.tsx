@@ -9,7 +9,7 @@ export const PaymentFailPage: React.FC = () => {
     document.body.style.margin = '0';
     document.body.style.padding = '0';
     document.documentElement.style.backgroundColor = '#000000';
-    
+
     return () => {
       document.body.style.backgroundColor = '';
       document.documentElement.style.backgroundColor = '';
@@ -55,21 +55,11 @@ export const PaymentFailPage: React.FC = () => {
         }
       `}</style>
 
-      <div
-        style={{
-          backgroundColor: '#000000',
-          minHeight: '100vh',
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '2rem'
-        }}
-      >
-        <div className="max-w-2xl mx-auto text-center">
+      <div className="bg-black min-h-screen w-full flex items-center justify-center p-4 sm:p-8">
+        <div className="max-w-xl sm:max-w-2xl mx-auto text-center w-full">
           {/* Error Icon */}
-          <div className="mb-8 flex justify-center">
-            <svg width="120" height="120" viewBox="0 0 120 120">
+          <div className="mb-6 sm:mb-8 flex justify-center">
+            <svg className="w-24 h-24 sm:w-[120px] sm:h-[120px]" viewBox="0 0 120 120">
               <circle
                 className="error-circle"
                 cx="60"
@@ -103,43 +93,43 @@ export const PaymentFailPage: React.FC = () => {
           </div>
 
           {/* Error Message */}
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4" style={{ color: '#FFFFFF', letterSpacing: '0' }}>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-white tracking-normal">
             Payment Failed
           </h1>
-          
-          <p className="text-xl text-gray-300 mb-8" style={{ letterSpacing: '0' }}>
+
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 tracking-normal">
             Unfortunately, we couldn't process your payment.
           </p>
 
-          <div className="bg-[#0E0E0E] border border-[#EB0028] rounded-xl p-8 mb-8">
-            <h3 className="text-lg font-bold text-white mb-4" style={{ letterSpacing: '0' }}>
+          <div className="bg-[#0E0E0E] border border-[#EB0028] rounded-xl p-6 sm:p-8 mb-8 text-left">
+            <h3 className="text-base sm:text-lg font-bold text-white mb-4 tracking-normal">
               Common reasons for payment failure:
             </h3>
             <div className="space-y-3 text-left">
               <div className="flex items-start space-x-3">
                 <span className="text-[#EB0028] flex-shrink-0">•</span>
-                <p className="text-gray-300" style={{ letterSpacing: '0' }}>
+                <p className="text-sm sm:text-base text-gray-300 tracking-normal">
                   Insufficient funds in your account
                 </p>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <span className="text-[#EB0028] flex-shrink-0">•</span>
-                <p className="text-gray-300" style={{ letterSpacing: '0' }}>
+                <p className="text-sm sm:text-base text-gray-300 tracking-normal">
                   Incorrect card details or expired card
                 </p>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <span className="text-[#EB0028] flex-shrink-0">•</span>
-                <p className="text-gray-300" style={{ letterSpacing: '0' }}>
+                <p className="text-sm sm:text-base text-gray-300 tracking-normal">
                   Your bank declined the transaction
                 </p>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <span className="text-[#EB0028] flex-shrink-0">•</span>
-                <p className="text-gray-300" style={{ letterSpacing: '0' }}>
+                <p className="text-sm sm:text-base text-gray-300 tracking-normal">
                   Network or connection issues
                 </p>
               </div>
@@ -150,34 +140,31 @@ export const PaymentFailPage: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => navigate(-1)}
-              className="inline-block bg-[#EB0028] px-8 py-4 rounded-lg text-lg font-bold hover:bg-[#c7001f] transition-all"
-              style={{ color: '#FFFFFF', letterSpacing: '0' }}
+              className="inline-block bg-[#EB0028] px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-bold hover:bg-[#c7001f] transition-all text-white tracking-normal"
             >
               Try Again
             </button>
-            
+
             <Link
               to="/register"
-              className="inline-block bg-[#1F1F1F] border border-[#EB0028] px-8 py-4 rounded-lg text-lg font-bold hover:bg-[#2F2F2F] transition-all"
-              style={{ color: '#FFFFFF', letterSpacing: '0', textDecoration: 'none' }}
+              className="inline-block bg-[#1F1F1F] border border-[#EB0028] px-6 py-3 sm:px-8 sm:py-4 rounded-lg text-base sm:text-lg font-bold hover:bg-[#2F2F2F] transition-all text-white tracking-normal no-underline"
             >
               Return to Registration
             </Link>
           </div>
 
           {/* Help Section */}
-          <div className="mt-12">
-            <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-6">
-              <h3 className="text-lg font-bold text-white mb-3" style={{ letterSpacing: '0' }}>
+          <div className="mt-8 sm:mt-12">
+            <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl p-5 sm:p-6">
+              <h3 className="text-base sm:text-lg font-bold text-white mb-3 tracking-normal">
                 Need Help?
               </h3>
-              <p className="text-gray-400 mb-4" style={{ letterSpacing: '0' }}>
+              <p className="text-sm sm:text-base text-gray-400 mb-4 tracking-normal">
                 If you continue to experience issues, please contact your bank or reach out to our support team.
               </p>
               <Link
                 to="/contact"
-                className="inline-block text-[#EB0028] hover:underline font-semibold"
-                style={{ letterSpacing: '0' }}
+                className="inline-block text-[#EB0028] hover:underline font-semibold text-sm sm:text-base tracking-normal"
               >
                 Contact Support →
               </Link>
@@ -188,8 +175,7 @@ export const PaymentFailPage: React.FC = () => {
           <div className="mt-8">
             <Link
               to="/"
-              className="text-gray-500 hover:text-gray-300 transition-colors"
-              style={{ letterSpacing: '0' }}
+              className="text-gray-500 hover:text-gray-300 transition-colors text-sm sm:text-base tracking-normal"
             >
               ← Back to Home
             </Link>

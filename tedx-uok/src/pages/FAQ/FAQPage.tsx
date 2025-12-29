@@ -70,8 +70,6 @@ export default function FAQPage() {
             (item) => item.faq_category_id === category.faq_category_id
           );
 
-          // Split category name into white and red parts
-          // Assumes format like "Registration & Tickets" where last word is red
           const titleParts = splitTitle(category.name);
 
           return {
@@ -155,7 +153,7 @@ export default function FAQPage() {
             <p>No FAQ items available at the moment.</p>
           </div>
         ) : (
-          faqGroups.map((group, gIndex) => (
+          faqGroups.map((group) => (
             <div key={group.category.faq_category_id} className="!mb-20">
               <h2 className="text-2xl font-semibold text-center !mb-10">
                 {group.titleParts.map((part, idx) => (
@@ -176,26 +174,41 @@ export default function FAQPage() {
                   return (
                     <div
                       key={id}
-                      className="rounded-2xl border border-[#1F1F1F] bg-[#0E0E0E] px-6 py-6 hover:border-[#EB0028]/50 transition-all duration-300"
+                      className={`rounded-2xl border bg-[#0E0E0E] px-6 transition-all duration-300 ${isOpen
+                          ? "border-[#EB0028]/50 pb-6"
+                          : "border-[#1F1F1F] pb-0 hover:border-[#EB0028]/30"
+                        }`}
                     >
+                      {/* Button Section */}
                       <button
                         onClick={() => setOpenId(isOpen ? null : id)}
                         aria-expanded={isOpen}
-                        className="w-full text-left font-medium text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-[#EB0028] rounded flex items-start justify-between gap-3"
+                        className="w-full text-left font-medium text-white focus:outline-none py-6 flex items-start justify-between gap-3"
                       >
                         <span className="flex-1">{item.question}</span>
                         <ChevronDown
-                          className={`w-5 h-5 text-[#EB0028] flex-shrink-0 transition-transform duration-300 ${
-                            isOpen ? "rotate-180" : ""
-                          }`}
+                          className={`w-5 h-5 text-[#EB0028] flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+                            }`}
                         />
                       </button>
 
-                      {isOpen && (
-                        <p className="mt-4 text-white leading-relaxed text-left">
-                          {item.answer}
-                        </p>
-                      )}
+                      {/* Animated Content Section using CSS Grid Trick */}
+                      <div
+                        className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${isOpen
+                            ? "grid-rows-[1fr] opacity-100"
+                            : "grid-rows-[0fr] opacity-0"
+                          }`}
+                      >
+                        <div className="overflow-hidden">
+                          {/* Note: We used pt-2 instead of mt-4 here.
+                             Using margins on the animating element causes jumps.
+                             Padding inside the overflow container animates smoothly.
+                          */}
+                          <p className="pt-2 text-gray-300 leading-relaxed text-left border-t border-[#1F1F1F]/50">
+                            {item.answer}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   );
                 })}

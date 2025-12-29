@@ -26,11 +26,7 @@ export const FormSelect: React.FC<FormSelectProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const getBorderColor = () => {
-    if (error) return '#EB0028';
-    if (isFocused || isHovered) return '#EB0028';
-    return '#1F1F1F';
-  };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(name, e.target.value);
@@ -38,12 +34,11 @@ export const FormSelect: React.FC<FormSelectProps> = ({
 
   return (
     <div className="space-y-2">
-      <label 
-        htmlFor={name} 
-        className="block text-sm font-medium text-gray-300" 
-        style={{ letterSpacing: '0', textAlign: 'left' }}
+      <label
+        htmlFor={name}
+        className="block text-sm font-medium text-gray-300 tracking-normal text-left"
       >
-        {label} {required && <span style={{ color: '#EB0028' }}>*</span>}
+        {label} {required && <span className="text-[#EB0028]">*</span>}
       </label>
       <select
         id={name}
@@ -55,40 +50,27 @@ export const FormSelect: React.FC<FormSelectProps> = ({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         disabled={disabled}
-        style={{
-          transition: 'border-color 0.3s ease',
-          borderWidth: '2px',
-          borderStyle: 'solid',
-          borderColor: getBorderColor(),
-          backgroundColor: '#0E0E0E',
-          borderRadius: '0.5rem',
-          padding: '0.75rem 1rem',
-          width: '100%',
-          color: value ?  '#FFFFFF' : '#6B7280',
-          outline:  'none',
-          cursor: disabled ? 'not-allowed' : 'pointer',
-          letterSpacing: '0',
-          opacity: disabled ? 0.5 : 1,
-        }}
+        className={`w-full bg-[#0E0E0E] rounded-lg border-2 border-solid px-4 py-3 outline-none tracking-normal transition-colors duration-300 ${error || isFocused || isHovered ? 'border-[#EB0028]' : 'border-[#1F1F1F]'
+          } ${value ? 'text-white' : 'text-gray-500'} ${disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}`}
         required={required}
         aria-invalid={error ? 'true' : 'false'}
         aria-describedby={error ? `${name}-error` : undefined}
       >
-        <option value="" style={{ backgroundColor: '#0E0E0E', color: '#6B7280' }}>
+        <option value="" className="bg-[#0E0E0E] text-gray-500">
           {placeholder}
         </option>
         {options.map((option) => (
           <option
             key={option.value}
             value={option.value}
-            style={{ backgroundColor: '#0E0E0E', color: '#FFFFFF' }}
+            className="bg-[#0E0E0E] text-white"
           >
             {option.label}
           </option>
         ))}
       </select>
       {error && (
-        <p id={`${name}-error`} className="text-sm mt-1" style={{ color: '#EB0028', letterSpacing: '0', textAlign: 'left' }}>
+        <p id={`${name}-error`} className="text-sm mt-1 text-[#EB0028] tracking-normal text-left">
           {error}
         </p>
       )}

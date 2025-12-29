@@ -10,12 +10,12 @@ export default function AboutTedxUokPage() {
       {/* Hero Section */}
       <section className="py-16 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-6xl md:text-7xl font-bold mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8">
             <span className="text-foreground">TED</span>
-            <sup className="text-primary text-[0.8em]">x</sup>
-            <span className="text-foreground ml-4">UOK</span>
+            <sup className="text-primary text-[0.6em] sm:text-[0.8em]">x</sup>
+            <span className="text-foreground ml-2 sm:ml-4">UOK</span>
           </h1>
-          <p className="text-2xl text-muted-foreground max-w-4xl mx-auto">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto px-2">
             Spreading ideas worth sharing at the University of Kelaniya.
           </p>
           <div className="mt-8 inline-block border-l-4 border-primary pl-4">
@@ -27,7 +27,7 @@ export default function AboutTedxUokPage() {
 
         {/* Mission & Story */}
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-8">Our Mission & Story</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 text-center md:text-left">Our Mission & Story</h2>
           <div className="bg-card border border-border rounded-lg p-8">
             <p className="text-xl text-muted-foreground mb-6">
               TED<sup className="text-[0.8em]">x</sup>UOK was founded with a simple yet powerful vision: to create a platform
@@ -44,7 +44,7 @@ export default function AboutTedxUokPage() {
 
         {/* Theme Intro */}
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-8">TED<sup className="text-[0.8em]">x</sup>UOK {eventYear}: {currentTheme}</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 text-center md:text-left">TED<sup className="text-[0.8em]">x</sup>UOK {eventYear}: {currentTheme}</h2>
           <div className="bg-card border border-border rounded-lg p-8">
             <h3 className="text-2xl font-bold text-foreground mb-4">What is the Ripple Effect?</h3>
             <p className="text-muted-foreground mb-4">
@@ -61,7 +61,7 @@ export default function AboutTedxUokPage() {
 
         {/* Event Goals */}
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-8">Event Goals & Impact</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 text-center md:text-left">Event Goals & Impact</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-card border border-border rounded-lg p-6">
               <h3 className="text-2xl font-bold text-primary mb-4">Short-term Goals</h3>
@@ -101,7 +101,7 @@ export default function AboutTedxUokPage() {
 
         {/* Stats */}
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-8 text-center">Our Impact</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 text-center">Our Impact</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center p-6 border border-border rounded-lg bg-card">
               <div className="text-4xl font-bold text-primary mb-2">1st</div>
@@ -125,7 +125,7 @@ export default function AboutTedxUokPage() {
         <div className="text-center">
           <Link
             to="/team"
-            className="inline-flex items-center bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-colors duration-300 mb-8"
+            className="inline-flex items-center justify-center bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-colors duration-300 mb-8 w-full sm:w-auto"
           >
             Meet Our Team
             <ArrowRight className="w-5 h-5 ml-2" />

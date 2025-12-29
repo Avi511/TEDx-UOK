@@ -7,19 +7,19 @@ export default function AboutTedPage() {
       {/* Hero Section */}
       <section className="py-16 px-6 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-6xl md:text-7xl font-bold mb-8">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 md:mb-8">
             <span className="text-primary">TED</span>
-            <span className="text-foreground ml-4">: Ideas Worth Spreading</span>
+            <span className="text-foreground ml-2 sm:ml-4">: Ideas Worth Spreading</span>
           </h1>
-          <p className="text-2xl text-muted-foreground max-w-4xl mx-auto">
+          <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto px-2">
             A global community welcoming people from every discipline and culture who seek a deeper understanding of the world.
           </p>
         </div>
 
         {/* Mission Section */}
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-8">Our Mission</h2>
-          <div className="bg-card border border-border rounded-lg p-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 text-center md:text-left">Our Mission</h2>
+          <div className="bg-card border border-border rounded-lg p-6 md:p-8">
             <p className="text-xl text-muted-foreground mb-6">
               TED's mission is to spread ideas. We believe passionately in the power of ideas to change attitudes, lives and, ultimately, the world.
             </p>
@@ -31,7 +31,7 @@ export default function AboutTedPage() {
 
         {/* History Section */}
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-8">History</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 text-center md:text-left">History</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-card border border-border rounded-lg p-6">
               <div className="text-primary text-3xl font-bold mb-4">1984</div>
@@ -59,7 +59,7 @@ export default function AboutTedPage() {
 
         {/* Initiatives */}
         <div className="mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-8">Key Initiatives</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6 md:mb-8 text-center md:text-left">Key Initiatives</h2>
           <div className="space-y-6">
             <div className="bg-card border border-border rounded-lg p-6">
               <div className="flex items-center gap-6">
@@ -103,7 +103,7 @@ export default function AboutTedPage() {
             href="https://www.ted.com/about"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-colors duration-300 mb-8"
+            className="inline-flex items-center justify-center bg-primary text-white px-8 py-3 rounded-full font-bold hover:bg-primary/90 transition-colors duration-300 mb-8 w-full sm:w-auto"
           >
             Visit TED.com
             <ExternalLink className="w-5 h-5 ml-2" />

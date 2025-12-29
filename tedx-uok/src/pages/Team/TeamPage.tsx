@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Linkedin, UserCheck, Users, UserCog } from 'lucide-react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { sharedStyles } from '../../utils/constants';
 import { supabase } from '../../lib/supabase';
 import { getSupabaseStorageUrl } from '../../lib/utils';
 import Loading from '../../components/ui/Loading';
-import {useSEO} from "../../hooks/useSEO";
+import { useSEO } from "../../hooks/useSEO";
 interface TeamMember {
   id: string;
   full_name: string;
@@ -19,12 +21,20 @@ const TeamPage: React.FC = () => {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   useSEO({
-      title: "Our Team - Meet the Organizers| TEDxUOK",
-      description: "Discover the passionate team behind TEDxUOK, including our licensee, executive committee, and directors dedicated to bringing inspiring ideas to life."
-    })
+    title: "Our Team - Meet the Organizers| TEDxUOK",
+    description: "Discover the passionate team behind TEDxUOK, including our licensee, executive committee, and directors dedicated to bringing inspiring ideas to life."
+  })
 
   useEffect(() => {
-    
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 50,
+    });
+  }, []);
+
+  useEffect(() => {
+
     const fetchTeamMembers = async () => {
       const { data, error } = await supabase
         .from('team_members')
@@ -42,8 +52,8 @@ const TeamPage: React.FC = () => {
           type: (m.type as TeamMember['type']) || 'Director',
           photo_url: m.photo_url
             ? (String(m.photo_url).startsWith('http') || String(m.photo_url).startsWith('/')
-                ? String(m.photo_url)
-                : getSupabaseStorageUrl(teamBucket, String(m.photo_url)))
+              ? String(m.photo_url)
+              : getSupabaseStorageUrl(teamBucket, String(m.photo_url)))
             : '',
           linkedin_url: m.linkedin_url,
           function_area: m.function_area,
@@ -69,24 +79,24 @@ const TeamPage: React.FC = () => {
     switch (type) {
       case 'Licensee':
         return {
-          borderColor: 'border-purple-400',
-          bgGradient: 'from-purple-400/10 to-purple-600/5',
-          accentColor: 'text-purple-400',
-          icon: <UserCheck className="w-6 h-6" />
+          borderColor: 'border-[#EB0028]',
+          bgGradient: 'from-[#EB0028]/10 to-[#EB0028]/5',
+          accentColor: 'text-[#EB0028]',
+          icon: <UserCheck className="w-6 h-6 text-[#EB0028]" />
         };
       case 'EXCO':
         return {
-          borderColor: 'border-blue-400',
-          bgGradient: 'from-blue-400/10 to-blue-600/5',
-          accentColor: 'text-blue-400',
-          icon: <Users className="w-6 h-6" />
+          borderColor: 'border-[#EB0028]',
+          bgGradient: 'from-[#EB0028]/10 to-[#EB0028]/5',
+          accentColor: 'text-[#EB0028]',
+          icon: <Users className="w-6 h-6 text-[#EB0028]" />
         };
       case 'Director':
         return {
-          borderColor: 'border-green-400',
-          bgGradient: 'from-green-400/10 to-green-600/5',
-          accentColor: 'text-green-400',
-          icon: <UserCog className="w-6 h-6" />
+          borderColor: 'border-[#EB0028]',
+          bgGradient: 'from-[#EB0028]/10 to-[#EB0028]/5',
+          accentColor: 'text-[#EB0028]',
+          icon: <UserCog className="w-6 h-6 text-[#EB0028]" />
         };
       default:
         return {
@@ -116,18 +126,20 @@ const TeamPage: React.FC = () => {
       </div>
 
       <div className={sharedStyles.layout.gridThreeCol}>
-        {members.map((member) => {
+        {members.map((member, index) => {
           const typeStyles = getTeamTypeStyles(member.type);
           return (
             <article
               key={member.id}
-              className={`${sharedStyles.card.base} bg-gradient-to-br ${typeStyles.bgGradient} ${typeStyles.borderColor} border-2 hover:border-opacity-80 transition-all duration-300 group`}
+              data-aos="fade-up"
+              data-aos-delay={index * 100}
+              className={`bg-card border border-border rounded-lg overflow-hidden flex flex-col h-full shadow-lg hover:shadow-2xl bg-gradient-to-br ${typeStyles.bgGradient} ${typeStyles.borderColor} border-2 hover:border-opacity-80 transition-all duration-300 group`}
             >
               <div className={`${sharedStyles.card.imageContainer} relative overflow-hidden`}>
                 <img
                   src={member.photo_url}
                   alt={member.full_name}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-300"
                   loading="lazy"
                   onError={(e) => {
                     e.currentTarget.src = 'https://via.placeholder.com/400x500/e8e2dc/666666?text=No+Image';
@@ -135,7 +147,7 @@ const TeamPage: React.FC = () => {
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300"
                 />
                 {member.linkedin_url && (
                   <a
@@ -143,7 +155,7 @@ const TeamPage: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Open ${member.full_name} LinkedIn profile`}
-                    className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0"
+                    className="absolute top-4 right-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-all duration-300 transform translate-y-0 sm:translate-y-2 sm:group-hover:translate-y-0"
                     title="LinkedIn"
                   >
                     <Linkedin className="h-4 w-4" aria-hidden="true" />
