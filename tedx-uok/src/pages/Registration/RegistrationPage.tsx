@@ -9,6 +9,8 @@ interface RegistrationFormData {
   full_name: string;
   email: string;
   phone: string;
+  address: string;
+  city: string;
   ticket_type: string;
   event_id: number;
 }
@@ -17,6 +19,8 @@ interface FormErrors {
   full_name?: string;
   email?: string;
   phone?: string;
+  address?: string;
+  city?: string;
   ticket_type?: string;
   event_id?: string;
 }
@@ -28,11 +32,38 @@ interface Event {
   is_active: boolean;
 }
 
+// PayHere Redirect Helper
+// PayHere Redirect Helper
+const redirectToPayHere = (payload: any) => {
+  console.log("Starting PayHere Redirect with Payload:", payload);
+
+  const form = document.createElement("form");
+  form.setAttribute("method", "POST");
+  form.setAttribute("action", "https://sandbox.payhere.lk/pay/checkout");
+  form.setAttribute("style", "display: none;");
+
+  Object.keys(payload).forEach(key => {
+    const input = document.createElement("input");
+    input.setAttribute("type", "hidden");
+    input.setAttribute("name", key);
+    input.setAttribute("value", payload[key]);
+    form.appendChild(input);
+  });
+
+  document.body.appendChild(form);
+  form.submit();
+};
+
+
+
 export const RegistrationPage: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<RegistrationFormData>({
     full_name: '',
     email: '',
     phone: '',
+    address: '',
+    city: '',
     ticket_type: '',
     event_id: 0, // Hidden field - default event ID
   });
@@ -129,6 +160,16 @@ export const RegistrationPage: React.FC = () => {
       newErrors.phone = 'Phone number is required';
     } else if (!validatePhone(formData.phone)) {
       newErrors.phone = 'Please enter a valid phone number';
+    }
+
+    // Validate address
+    if (!formData.address.trim()) {
+      newErrors.address = 'Address is required';
+    }
+
+    // Validate city
+    if (!formData.city.trim()) {
+      newErrors.city = 'City is required';
     }
 
     // Validate ticket_type
