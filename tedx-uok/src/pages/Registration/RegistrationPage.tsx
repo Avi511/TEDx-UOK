@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+// Added missing import
+// import { useNavigate } from "react-router-dom";
 import { FormInput } from "../../components/forms/FormInput";
 import { FormSelect } from "../../components/forms/FormSelect";
 import { SubmitButton } from "../../components/forms/SubmitButton";
@@ -32,8 +34,8 @@ interface Event {
   is_active: boolean;
 }
 
-// PayHere Redirect Helper
-// PayHere Redirect Helper
+// PayHere Redirect Helper (Commented out until Payment Logic is fully implemented)
+/*
 const redirectToPayHere = (payload: any) => {
   console.log("Starting PayHere Redirect with Payload:", payload);
 
@@ -53,19 +55,19 @@ const redirectToPayHere = (payload: any) => {
   document.body.appendChild(form);
   form.submit();
 };
-
-
+*/
 
 export const RegistrationPage: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Commented out unused variable
+
   const [formData, setFormData] = useState<RegistrationFormData>({
-    full_name: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    ticket_type: '',
-    event_id: 0, // Hidden field - default event ID
+    full_name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    ticket_type: "",
+    event_id: 0,
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
@@ -79,15 +81,14 @@ export const RegistrationPage: React.FC = () => {
 
   // Set body background to black when component mounts
   useEffect(() => {
-    document.body.style.backgroundColor = '#000000';
-    document.body.style.margin = '0';
-    document.body.style.padding = '0';
-    document.documentElement.style.backgroundColor = '#000000';
+    document.body.style.backgroundColor = "#000000";
+    document.body.style.margin = "0";
+    document.body.style.padding = "0";
+    document.documentElement.style.backgroundColor = "#000000";
 
     return () => {
-      // Cleanup when component unmounts
-      document.body.style.backgroundColor = '';
-      document.documentElement.style.backgroundColor = '';
+      document.body.style.backgroundColor = "";
+      document.documentElement.style.backgroundColor = "";
     };
   }, []);
 
@@ -107,7 +108,6 @@ export const RegistrationPage: React.FC = () => {
         }
 
         setEvents(data || []);
-        // Auto-select first event if available
         if (data && data.length > 0) {
           setFormData((prev) => ({ ...prev, event_id: data[0].event_id }));
         }
@@ -141,43 +141,36 @@ export const RegistrationPage: React.FC = () => {
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
 
-    // Validate full_name
     if (!formData.full_name.trim()) {
-      newErrors.full_name = 'Full name is required';
+      newErrors.full_name = "Full name is required";
     } else if (formData.full_name.trim().length < 2) {
-      newErrors.full_name = 'Name must be at least 2 characters';
+      newErrors.full_name = "Name must be at least 2 characters";
     }
 
-    // Validate email
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
+      newErrors.email = "Please enter a valid email address";
     }
 
-    // Validate phone
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = "Phone number is required";
     } else if (!validatePhone(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
+      newErrors.phone = "Please enter a valid phone number";
     }
 
-    // Validate address
     if (!formData.address.trim()) {
-      newErrors.address = 'Address is required';
+      newErrors.address = "Address is required";
     }
 
-    // Validate city
     if (!formData.city.trim()) {
-      newErrors.city = 'City is required';
+      newErrors.city = "City is required";
     }
 
-    // Validate ticket_type
     if (!formData.ticket_type) {
       newErrors.ticket_type = "Please select a ticket type";
     }
 
-    // Validate event_id
     if (!formData.event_id) {
       newErrors.event_id = "Please select an event";
     }
@@ -192,7 +185,6 @@ export const RegistrationPage: React.FC = () => {
       [name]: name === "event_id" ? parseInt(value, 10) : value,
     }));
 
-    // Clear error for this field when user types
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({
         ...prev,
@@ -216,7 +208,6 @@ export const RegistrationPage: React.FC = () => {
     setLoading(true);
 
     try {
-      // Insert registration data into Supabase
       const { data, error } = await supabase
         .from("registrations")
         .insert([
@@ -226,6 +217,9 @@ export const RegistrationPage: React.FC = () => {
             email: formData.email,
             phone: formData.phone,
             ticket_type: formData.ticket_type,
+            // Logic Fix: You must include address/city in the DB insert if your table has columns for them
+            address: formData.address,
+            city: formData.city,
             status: "Pending",
           },
         ])
@@ -243,16 +237,18 @@ export const RegistrationPage: React.FC = () => {
       console.log("Registration Data inserted:", data);
 
       setSubmitMessage({
-        type: 'success',
-        text: 'Registration successful! Check your email for confirmation.',
+        type: "success",
+        text: "Registration successful! Check your email for confirmation.",
       });
 
-      // Reset form after successful submission
+      // FIX: Reset ALL form fields to fix Type Error
       setFormData({
-        full_name: '',
-        email: '',
-        phone: '',
-        ticket_type: '',
+        full_name: "",
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        ticket_type: "",
         event_id: events.length > 0 ? events[0].event_id : 0,
       });
       setErrors({});
@@ -276,18 +272,34 @@ export const RegistrationPage: React.FC = () => {
               Event <span className="text-[#EB0028]">Registration</span>
             </h1>
             <p className="text-lg mb-4 tracking-normal text-white">
-              Secure your spot at <span className="text-[#EB0028]">TED<sup className="text-[#EB0028]">x</sup></span> <span className="text-white">UoK</span>
+              Secure your spot at{" "}
+              <span className="text-[#EB0028]">
+                TED<sup className="text-[#EB0028]">x</sup>
+              </span>{" "}
+              <span className="text-white">UoK</span>
             </p>
 
-            {/* Trust-building message */}
             <div className="mt-6 max-w-2xl mx-auto bg-[#0E0E0E] border border-[#1F1F1F] rounded-lg p-4 text-left">
               <div className="flex items-start space-x-3">
-                <svg className="w-6 h-6 text-[#EB0028] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                <svg
+                  className="w-6 h-6 text-[#EB0028] flex-shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
                 </svg>
                 <div>
                   <p className="text-gray-300 text-sm tracking-normal">
-                    <strong className="text-white">Secure Registration.</strong> Your information is encrypted and protected. You'll receive a confirmation email immediately after registration with your event ticket and details.
+                    <strong className="text-white">Secure Registration.</strong>{" "}
+                    Your information is encrypted and protected. You'll receive
+                    a confirmation email immediately after registration with
+                    your event ticket and details.
                   </p>
                 </div>
               </div>
@@ -295,41 +307,56 @@ export const RegistrationPage: React.FC = () => {
           </div>
 
           <div className="bg-[#0E0E0E] border border-[#1F1F1F] rounded-xl sm:rounded-2xl p-6 sm:p-8">
-            {submitMessage && submitMessage.type === 'success' && (
+            {submitMessage && submitMessage.type === "success" && (
               <div className="mb-6 bg-green-900/20 border border-green-500 rounded-xl p-6 text-left">
                 <div className="flex items-start space-x-4 mb-4">
-                  <svg className="w-8 h-8 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <svg
+                    className="w-8 h-8 text-green-500 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
                   </svg>
                   <div className="flex-1">
-                    <h3 className="text-white font-bold text-xl mb-2 tracking-normal">Registration Successful!</h3>
-                    <p className="text-gray-300 mb-4 tracking-normal">Thank you for registering for TED<sup>x</sup> UoK! Your spot is reserved.</p>
+                    <h3 className="text-white font-bold text-xl mb-2 tracking-normal">
+                      Registration Successful!
+                    </h3>
+                    <p className="text-gray-300 mb-4 tracking-normal">
+                      Thank you for registering for TED<sup>x</sup> UoK! Your
+                      spot is reserved.
+                    </p>
 
                     <div className="bg-black/30 rounded-lg p-4 mb-4">
-                      <h4 className="text-white font-semibold mb-3 tracking-normal">What happens next?</h4>
+                      <h4 className="text-white font-semibold mb-3 tracking-normal">
+                        What happens next?
+                      </h4>
                       <div className="space-y-3">
                         <div className="flex items-start space-x-3">
-                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">1</div>
+                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">
+                            1
+                          </div>
                           <div>
-                            <p className="text-gray-300 text-sm tracking-normal"><strong>Immediately:</strong> Check your email for registration confirmation and ticket details</p>
+                            <p className="text-gray-300 text-sm tracking-normal">
+                              <strong>Immediately:</strong> Check your email for
+                              registration confirmation and ticket details
+                            </p>
                           </div>
                         </div>
                         <div className="flex items-start space-x-3">
-                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">2</div>
-                          <div>
-                            <p className="text-gray-300 text-sm tracking-normal"><strong>Payment (if required):</strong> Complete payment via the link in your email within 24 hours</p>
+                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">
+                            2
                           </div>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">3</div>
                           <div>
-                            <p className="text-gray-300 text-sm tracking-normal"><strong>Event Day:</strong> Bring your ticket (email or printed) and a valid ID</p>
-                          </div>
-                        </div>
-                        <div className="flex items-start space-x-3">
-                          <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0 text-xs font-bold text-black">4</div>
-                          <div>
-                            <p className="text-gray-300 text-sm tracking-normal"><strong>Stay Updated:</strong> Follow us on social media for event updates and reminders</p>
+                            <p className="text-gray-300 text-sm tracking-normal">
+                              <strong>Payment (if required):</strong> Complete
+                              payment via the link in your email within 24 hours
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -340,31 +367,15 @@ export const RegistrationPage: React.FC = () => {
                         href="mailto:check-email"
                         className="inline-flex items-center justify-center px-4 py-2 bg-[#EB0028] rounded-lg text-white text-sm font-semibold hover:bg-[#c7001f] transition-all no-underline tracking-normal"
                       >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
                         Check Your Email
                       </a>
-                      <a
-                        href="/agenda"
-                        className="inline-flex items-center justify-center px-4 py-2 bg-[#1F1F1F] border border-[#EB0028] rounded-lg text-white text-sm font-semibold hover:bg-[#2F2F2F] transition-all no-underline tracking-normal"
-                      >
-                        <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        View Event Agenda
-                      </a>
                     </div>
-
-                    <p className="text-gray-400 text-xs mt-4 tracking-normal">
-                      Didn't receive an email? Check your spam folder or <a href="/contact" className="text-[#EB0028] hover:underline">contact support</a>.
-                    </p>
                   </div>
                 </div>
               </div>
             )}
 
-            {submitMessage && submitMessage.type === 'error' && (
+            {submitMessage && submitMessage.type === "error" && (
               <div className="mb-6">
                 <FormMessage
                   type={submitMessage.type}
@@ -380,11 +391,19 @@ export const RegistrationPage: React.FC = () => {
                 name="event_id"
                 value={formData.event_id.toString()}
                 onChange={handleChange}
-                options={events.map(event => ({
+                options={events.map((event) => ({
                   value: event.event_id.toString(),
-                  label: `${event.name} - ${new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`
+                  label: `${event.name} - ${new Date(
+                    event.date
+                  ).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}`,
                 }))}
-                placeholder={loadingEvents ? "Loading events..." : "Select an event"}
+                placeholder={
+                  loadingEvents ? "Loading events..." : "Select an event"
+                }
                 error={errors.event_id}
                 required
                 disabled={loadingEvents || events.length === 0}
@@ -420,6 +439,29 @@ export const RegistrationPage: React.FC = () => {
                 onChange={handleChange}
                 placeholder="+94 XX XXX XXXX"
                 error={errors.phone}
+                required
+              />
+
+              {/* Added missing fields to UI to prevent validation logic failure */}
+              <FormInput
+                label="Address"
+                name="address"
+                type="text"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Your residential address"
+                error={errors.address}
+                required
+              />
+
+              <FormInput
+                label="City"
+                name="city"
+                type="text"
+                value={formData.city}
+                onChange={handleChange}
+                placeholder="City/Town"
+                error={errors.city}
                 required
               />
 
