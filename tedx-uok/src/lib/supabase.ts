@@ -1,11 +1,14 @@
-import { createClient } from "@supabase/supabase-js";
-import type { Database } from "@/types/database"; // adjust alias/relative import
+import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+// Validate කරන්න
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Supabase env vars are missing");
+  console.error('Supabase credentials missing in environment variables');
 }
 
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+// Single instance එකක් export කරන්න
+export const supabase = supabaseUrl && supabaseAnonKey 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
