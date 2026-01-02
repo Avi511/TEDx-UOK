@@ -16,7 +16,7 @@ serve(async (req) => {
   try {
     const formData = await req.formData();
     const entries = Object.fromEntries(formData.entries());
-    console.log("PayHere Notify Received:", JSON.stringify(entries));
+    console.log("PayHere Webhook Payload:", JSON.stringify(entries));
 
     const merchant_id = formData.get("merchant_id")?.toString();
     const order_id = formData.get("order_id")?.toString();
@@ -29,7 +29,7 @@ serve(async (req) => {
     const merchantSecret = Deno.env.get("PAYHERE_MERCHANT_SECRET");
     const envMerchantId = Deno.env.get("PAYHERE_MERCHANT_ID");
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
-    // Updated: Use service role to bypass RLS
+    // Fix: Fallback for different naming conventions of the service role key
     const supabaseServiceRoleKey =
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ||
       Deno.env.get("SERVICE_ROLE_KEY");
@@ -40,11 +40,11 @@ serve(async (req) => {
       !supabaseUrl ||
       !supabaseServiceRoleKey
     ) {
-      throw new Error("Server Configuration Error: Missing Secrets");
+      throw new Error("Missing internal environment variables");
     }
 
     if (merchant_id !== envMerchantId) {
-      throw new Error("Invalid Merchant ID Mismatch");
+      throw new Error("Merchant ID verification failed");
     }
 
     const md5 = (content: string) =>
@@ -66,6 +66,7 @@ serve(async (req) => {
     let paymentStatus = "";
     let registrationStatus = "";
 
+    // Standard PayHere Status Codes
     if (status_code === "2") {
       paymentStatus = "paid";
       registrationStatus = "Confirmed";
@@ -99,7 +100,7 @@ serve(async (req) => {
 
     return new Response("OK", { status: 200 });
   } catch (error) {
-    console.error("PayHere Notify Error:", error.message);
+    console.error("Webhook Processing Error:", error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       status: 400,
     });

@@ -57,7 +57,7 @@ serve(async (req) => {
       throw new Error("Server Misconfiguration: Missing PayHere Secrets");
     }
 
-    // Updated: Dynamic Webhook URL based on environment
+    // Fix: Dynamically get URL to ensure webhook points to the right project
     const supabaseUrl = Deno.env.get("SUPABASE_URL")?.replace(/\/$/, "");
     const webhookUrl = `${supabaseUrl}/functions/v1/payhere-notify`;
 
@@ -78,12 +78,12 @@ serve(async (req) => {
 
     const payload = {
       merchant_id: merchantId,
-      // Updated: Explicitly using your Vercel domain
+      // Fix: Hardcode your Vercel domain to prevent "Unauthorized" errors
       return_url: `https://tedx-uok.vercel.app/payment/success`,
       cancel_url: `https://tedx-uok.vercel.app/payment/cancel`,
       notify_url: webhookUrl,
       order_id: orderId,
-      items: "TEDx Ticket",
+      items: "TEDx Ticket Enrollment",
       currency: currency,
       amount: amount,
       first_name: firstName,
@@ -94,7 +94,7 @@ serve(async (req) => {
       city: registration.city,
       country: "Sri Lanka",
       hash: finalHash,
-      // Updated: Toggle based on env variable PAYHERE_IS_SANDBOX (0 for production)
+      // Fix: Toggle based on environment variable (0 = live, 1 = sandbox)
       sandbox: Deno.env.get("PAYHERE_IS_SANDBOX") === "0" ? "0" : "1",
     };
 
@@ -103,7 +103,7 @@ serve(async (req) => {
     });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), {
-      status: 400,
+      status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   }
