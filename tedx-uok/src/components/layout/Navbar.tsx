@@ -15,9 +15,9 @@ export default function Navbar() {
       // Parent is not a link itself, but a trigger
       subItems: [
         { to: '/theme', label: 'Theme 2026' },
-        { to: '/about#ted', label: 'TED' },
-        { to: '/about#tedx', label: 'TEDx' },
-        { to: '/about#tedxuok', label: 'TEDxUoK' },
+        { to: '/about/ted', label: 'TED' },
+        { to: '/about/tedx', label: 'TEDx' },
+        { to: '/about/tedx-uok', label: 'TEDxUoK' },
       ]
     },
     { to: '/speakers', label: 'Speakers' },
