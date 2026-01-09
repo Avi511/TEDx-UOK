@@ -154,10 +154,10 @@ const AgendaPage = () => {
     <div className="relative bg-black text-white min-h-screen pt-24 pb-20 overflow-x-hidden">
       {/* Background Decorative Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center select-none">
-        <div className="relative opacity-[0.02] transform -rotate-12 scale-150 sm:scale-100">
+        <div className="relative opacity-[0.03] transform -rotate-12 scale-150 sm:scale-100">
           <div className="flex items-baseline leading-none font-bold">
-            <span className="text-[40vw] text-white tracking-tighter">TED</span>
-            <span className="text-[40vw] text-[#EB0028]">x</span>
+            <span className="text-[40vw] text-white tracking-tighter">TED </span>
+            <span className="text-[40vw] text-[#EB0028]"><sup>x</sup></span>
           </div>
           <div className="text-[15vw] text-white font-normal text-right -mt-[5vw] mr-[4vw]">
             UoK
