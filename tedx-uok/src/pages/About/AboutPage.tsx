@@ -48,10 +48,10 @@ export default function AboutPage() {
           <h1 className="text-6xl md:text-7xl font-bold mb-8">
             <span className="text-foreground">About</span>
             <span className="text-primary ml-4">
-              TED<sup className="text-[0.8em] align-super">x</sup>UoK
+              TED<sup>x</sup><span className="font-normal text-foreground">UoK</span>
             </span>
           </h1>
-          
+
           <div className="mb-8">
             <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
               {loading ? (
@@ -60,7 +60,7 @@ export default function AboutPage() {
                 theme
               )}
             </h2>
-            
+
             {loading ? (
               <div className="text-2xl text-muted-foreground max-w-4xl mx-auto">
                 <div className="h-6 w-full max-w-2xl bg-gray-200 rounded animate-pulse mx-auto"></div>
@@ -75,7 +75,7 @@ export default function AboutPage() {
 
         {/* Navigation Cards - FIXED: All with superscript x */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-20">
-          
+
           {/* TED Card */}
           <Link
             to="/about/ted"
@@ -104,14 +104,14 @@ export default function AboutPage() {
           >
             <div className="mb-6">
               <span className="text-primary font-bold text-5xl">
-                TED<sup className="text-[0.6em] align-super">x</sup>
+                TED<sup>x</sup>
               </span>
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-4">
-              About TED<sup className="text-[0.7em] align-super">x</sup>
+              About TED<sup>x</sup>
             </h2>
             <p className="text-muted-foreground mb-6">
-              Learn about the TED<sup className="text-[0.6em] align-super">x</sup> program, licensing, and how it differs from TED conferences.
+              Learn about the TED<sup>x</sup> program, licensing, and how it differs from TED conferences.
             </p>
             <div className="flex items-center text-foreground font-medium group-hover:text-primary transition-colors">
               Learn more
@@ -126,12 +126,12 @@ export default function AboutPage() {
           >
             <div className="mb-6 flex items-start">
               <span className="text-primary font-bold text-5xl">
-                TED<sup className="text-[0.6em] align-super">x</sup>
+                TED<sup>x</sup>
               </span>
-              <span className="text-foreground font-bold text-5xl ml-2">UoK</span>
+              <span className="text-foreground text-5xl ml-2"> UoK</span>
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-4">
-              About TED<sup className="text-[0.7em] align-super">x</sup>UoK
+              About TED<sup>x</sup><span className="font-normal text-foreground"> UoK</span>
             </h2>
             <p className="text-muted-foreground mb-6">
               Our story, mission, and commitment to spreading ideas at
@@ -192,7 +192,7 @@ export default function AboutPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-2xl font-bold text-foreground mb-2">
-                  TED<sup className="text-[0.6em] align-super">x</sup>UoK 2026 Theme
+                  2026 Theme
                 </h3>
                 <p className="text-muted-foreground">
                   <span className="font-semibold text-primary">{theme}</span>
@@ -221,7 +221,7 @@ export default function AboutPage() {
               to="/events"
               className="px-8 py-3 bg-[#EB0028] text-white rounded-full font-bold hover:bg-red-700 transition-colors duration-300"
             >
-              View TED<sup className="text-[0.6em] align-super">x</sup> Events
+              View TED<sup>x</sup> Events
             </Link>
           </div>
         </div>

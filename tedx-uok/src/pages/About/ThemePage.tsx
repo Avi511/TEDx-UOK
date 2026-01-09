@@ -1,5 +1,5 @@
 
-import PageHero from '../../components/ui/PageHero';
+import PageHero from '../../components/ui/PageHero.tsx';
 import Section from '../../components/ui/Section';
 
 const ThemePage = () => {
@@ -11,7 +11,7 @@ const ThemePage = () => {
             />
             <Section className="prose prose-invert max-w-4xl mx-auto">
                 <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                    The theme for TEDxUOK 2026 is <strong>"Horizons"</strong>.
+                    The theme for TEDxUoK 2026 is "Horizons".
                 </p>
                 <p className="text-gray-400 mb-6">
                     Horizons represent the line where the earth meets the sky—a boundary that is both visible and unreachable,

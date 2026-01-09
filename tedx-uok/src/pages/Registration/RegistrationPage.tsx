@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { FormInput } from "../../components/forms/FormInput";
 import { FormSelect } from "../../components/forms/FormSelect";
 import { SubmitButton } from "../../components/forms/SubmitButton";
@@ -9,8 +10,6 @@ interface RegistrationFormData {
   full_name: string;
   email: string;
   phone: string;
-  address: string;
-  city: string;
   ticket_type: string;
   event_id: number;
 }
@@ -19,8 +18,6 @@ interface FormErrors {
   full_name?: string;
   email?: string;
   phone?: string;
-  address?: string;
-  city?: string;
   ticket_type?: string;
   event_id?: string;
 }
@@ -62,8 +59,6 @@ export const RegistrationPage: React.FC = () => {
     full_name: '',
     email: '',
     phone: '',
-    address: '',
-    city: '',
     ticket_type: '',
     event_id: 0, // Hidden field - default event ID
   });
@@ -162,15 +157,7 @@ export const RegistrationPage: React.FC = () => {
       newErrors.phone = 'Please enter a valid phone number';
     }
 
-    // Validate address
-    if (!formData.address.trim()) {
-      newErrors.address = 'Address is required';
-    }
 
-    // Validate city
-    if (!formData.city.trim()) {
-      newErrors.city = 'City is required';
-    }
 
     // Validate ticket_type
     if (!formData.ticket_type) {
@@ -276,7 +263,7 @@ export const RegistrationPage: React.FC = () => {
               Event <span className="text-[#EB0028]">Registration</span>
             </h1>
             <p className="text-lg mb-4 tracking-normal text-white">
-              Secure your spot at <span className="text-[#EB0028]">TED<sup className="text-[#EB0028]">x</sup></span> <span className="text-white">UoK</span>
+              Secure your spot at <span className="text-[#EB0028] font-bold">TED<sup className="text-[#EB0028]">x</sup></span> <span className="text-white font-normal">UoK</span>
             </p>
 
             {/* Trust-building message */}

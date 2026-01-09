@@ -44,7 +44,7 @@ export default function SpeakersListPage() {
             className="inline-block mb-6"
           >
             <span className="px-6 py-2 bg-white/5 border border-white/10 rounded-full text-white/70 backdrop-blur-sm" style={{ fontWeight: 400, fontSize: '14px', letterSpacing: '0.1em' }}>
-              TEDXUOK 2025 SPEAKERS
+              TED<sup className="text-[0.8em]">x</sup> UoK 2025 SPEAKERS
             </span>
           </motion.div>
 
@@ -65,7 +65,7 @@ export default function SpeakersListPage() {
             className="text-white/60 max-w-3xl mx-auto text-lg leading-relaxed"
             style={{ fontWeight: 300 }}
           >
-            Meet the visionaries, innovators, and thought leaders who will share their groundbreaking ideas at TEDxUOK 2025
+            Meet the visionaries, innovators, and thought leaders who will share their groundbreaking ideas at TED<sup className="text-[0.8em]">x</sup> UoK 2025
           </motion.p>
         </motion.div>
 
@@ -115,7 +115,7 @@ export default function SpeakersListPage() {
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60 group-hover:opacity-80 transition-opacity"></div>
-                    
+
                     {/* Hover Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
                       <div className="flex items-center gap-2 px-6 py-3 bg-[#EB0028] text-white rounded-full shadow-lg">
@@ -136,7 +136,7 @@ export default function SpeakersListPage() {
                     <p className="text-white/60 line-clamp-2" style={{ fontWeight: 300, fontSize: '15px', lineHeight: 1.6 }}>
                       {speaker.talk_title}
                     </p>
-                    
+
                     {speaker.organization && (
                       <p className="text-white/40 text-sm">{speaker.organization}</p>
                     )}
@@ -163,7 +163,7 @@ export default function SpeakersListPage() {
               Don't Miss These Talks
             </h3>
             <p className="text-white/60 mb-8 max-w-xl mx-auto" style={{ fontWeight: 300, fontSize: '16px', lineHeight: 1.7 }}>
-              Get your tickets now to experience these inspiring speakers live at TEDxUOK 2025
+              Get your tickets now to experience these inspiring speakers live at TED<sup className="text-[0.8em]">x</sup> UoK 2025
             </p>
             <Link to="/#register">
               <motion.button
