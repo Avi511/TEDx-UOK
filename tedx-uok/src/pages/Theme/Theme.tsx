@@ -40,7 +40,7 @@ const Theme = () => {
   }
 
   const realSpeakers = speakers.map((s) => ({
-    id: s.id,
+    id: s.speaker_id,
     name: s.full_name,
     topic: s.talk_title || "Topic To Be Announced",
     alignment: s.bio_short || s.title,
@@ -49,7 +49,6 @@ const Theme = () => {
 
   const themeName = event?.theme || "Breaking Boundaries";
   const themeParts = themeName.split(" ");
-  const firstPart = themeParts[0];
   const secondPart = themeParts.slice(1).join(" ");
 
   return (

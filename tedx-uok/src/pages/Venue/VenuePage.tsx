@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
-import Navbar from "../../components/layout/Navbar";
-import Footer from "../../components/layout/Footer";
 import Card from "../../components/ui/Card";
 import Section from "../../components/ui/Section";
 import { Button } from "../../components/ui/Button";
-import { Bus, SquareParking, Users, Ticket, Phone } from "lucide-react";
+import { Bus, SquareParking, Users, Ticket } from "lucide-react";
 import Loading from "../../components/states/Loading";
 import Error from "../../components/states/Error";
 import Empty from "../../components/states/Empty";
